@@ -25,11 +25,6 @@ import java.util.Hashtable;
 import java.util.Map;
 
 @Configuration
-@EnableScheduling
-@EnableAsync(
-        mode = AdviceMode.PROXY, proxyTargetClass = false,
-        order = Ordered.HIGHEST_PRECEDENCE
-)
 @EnableTransactionManagement(
         mode = AdviceMode.PROXY, proxyTargetClass = false,
         order = Ordered.LOWEST_PRECEDENCE
