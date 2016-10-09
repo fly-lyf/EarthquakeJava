@@ -5,10 +5,7 @@ import earthquake.site.entities.EarthquakeWebpages;
 import earthquake.site.repositories.interfaces.LeftBarRepository;
 import earthquake.site.repositories.interfaces.WebpagesRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -31,7 +28,7 @@ public class IndexController {
 
     @ResponseBody
     @RequestMapping(value = "/leftbar" , params = {"content"})
-    public Iterable<String> leftBarList(@PathVariable String content) {
+    public Iterable<String> leftBarList(@RequestParam String content) {
         if(leftBar.size()<=0){
             Iterable<EarthquakeLeftbar> leftBarEntities = leftBarRepository.getAll();
             for (Iterator<EarthquakeLeftbar> iterator = leftBarEntities.iterator(); iterator.hasNext(); ) {
