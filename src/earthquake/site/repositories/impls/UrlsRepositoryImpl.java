@@ -1,5 +1,6 @@
 package earthquake.site.repositories.impls;
 
+import earthquake.site.entities.EarthquakeUrls;
 import earthquake.site.repositories.GenericJpaBaseRepository;
 import earthquake.site.repositories.interfaces.UrlsRepository;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class UrlsRepositoryImpl extends GenericJpaBaseRepository<String, String> implements UrlsRepository {
+public class UrlsRepositoryImpl extends GenericJpaBaseRepository<String, EarthquakeUrls> implements UrlsRepository {
 
 }

@@ -1,8 +1,8 @@
 package earthquake.site.repositories.impls;
 
-import earthquake.site.entities.EarthquakeWebpages;
+import earthquake.site.entities.EarthquakeLeftbar;
 import earthquake.site.repositories.GenericJpaBaseRepository;
-import earthquake.site.repositories.interfaces.UrlsRepository;
+import earthquake.site.repositories.interfaces.LeftBarRepository;
 import earthquake.site.repositories.interfaces.WebpagesRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class WebpagesRepositoryImpl extends GenericJpaBaseRepository<String, EarthquakeWebpages> implements WebpagesRepository {
+public class LeftBarRepositoryImpl extends GenericJpaBaseRepository<String, EarthquakeLeftbar> implements LeftBarRepository {
 
 }

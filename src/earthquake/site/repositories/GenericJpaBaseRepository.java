@@ -2,17 +2,17 @@ package earthquake.site.repositories;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Iterator;
+import java.util.Map;
 
 public abstract class
-GenericJpaBaseRepository<ID extends Serializable, E>
-    implements GenericRepository<ID, E>
-{
+        GenericJpaBaseRepository<ID extends Serializable, E>
+        implements GenericRepository<ID, E> {
     protected final Class<ID> idClass;
     protected final Class<E> entityClass;
 
@@ -20,72 +20,92 @@ GenericJpaBaseRepository<ID extends Serializable, E>
     protected EntityManager entityManager;
 
     @SuppressWarnings("unchecked")
-    public GenericJpaBaseRepository()
-    {
-        Type genericSuperclass = this.getClass().getGenericSuperclass();
-        while(!(genericSuperclass instanceof ParameterizedType))
-        {
-            if(!(genericSuperclass instanceof Class))
+    public GenericJpaBaseRepository() {
+        Type genericSuperclass = getClass().getGenericSuperclass();
+        while (!(genericSuperclass instanceof ParameterizedType)) {
+            if (!(genericSuperclass instanceof Class))
                 throw new IllegalStateException("Unable to determine type " +
                         "arguments because generic superclass neither " +
                         "parameterized type nor class.");
-            if(genericSuperclass == GenericJpaBaseRepository.class)
+            if (genericSuperclass == GenericJpaBaseRepository.class)
                 throw new IllegalStateException("Unable to determine type " +
                         "arguments because no parameterized generic superclass " +
                         "found.");
 
-            genericSuperclass = ((Class)genericSuperclass).getGenericSuperclass();
+            genericSuperclass = ((Class) genericSuperclass).getGenericSuperclass();
         }
 
-        ParameterizedType type = (ParameterizedType)genericSuperclass;
+        ParameterizedType type = (ParameterizedType) genericSuperclass;
         Type[] arguments = type.getActualTypeArguments();
-        this.idClass = (Class<ID>)arguments[0];
-        this.entityClass = (Class<E>)arguments[1];
+        idClass = (Class<ID>) arguments[0];
+        entityClass = (Class<E>) arguments[1];
     }
 
     @Override
-    public Iterable<E> getAll()
-    {
-        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-        CriteriaQuery<E> query = builder.createQuery(this.entityClass);
+    public Iterable<E> getAll() {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<E> query = builder.createQuery(entityClass);
 
-        return this.entityManager.createQuery(
-                query.select(query.from(this.entityClass))
+        return entityManager.createQuery(
+                query.select(query.from(entityClass))
         ).getResultList();
     }
 
     @Override
-    public E get(ID id)
-    {
-        return this.entityManager.find(this.entityClass, id);
+    public E get(ID id) {
+        return entityManager.find(entityClass, id);
     }
 
     @Override
-    public void add(E entity)
-    {
-        this.entityManager.persist(entity);
+    public Iterable<E> getByCondition(Map<String, String> conditions) {
+        String query = "select entity from " + entityClass.getSimpleName() + " entity";
+        boolean firstFlag = true;
+        for (Iterator<Map.Entry<String, String>> iterator = conditions.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<String, String> condition = iterator.next();
+            String key = condition.getKey();
+            if (firstFlag) {
+                firstFlag = false;
+                query += " where ";
+            } else {
+                query += " and ";
+            }
+            if (key.equals("startTime")) {
+                query += "entity.crawledTime > " + condition.getValue();
+            } else if (key.equals("endTime")) {
+                query += "entity.crawledTime < " + condition.getValue();
+            } else if (key.equals("title") || key.equals("content") || key.equals("h1") || key.equals("h2")) {
+                query += "entity." + key + " like %" + condition.getValue() + "%";
+            } else if (key.equals("topic")) {
+                query += "entity.topic = " + condition.getValue();
+            }
+        }
+        System.out.println(query);
+        TypedQuery<E> typedQuery = entityManager.createQuery(query, entityClass);
+        return typedQuery.getResultList();
     }
 
     @Override
-    public void update(E entity)
-    {
-        this.entityManager.merge(entity);
+    public void add(E entity) {
+        entityManager.persist(entity);
     }
 
     @Override
-    public void delete(E entity)
-    {
-        this.entityManager.remove(entity);
+    public void update(E entity) {
+        entityManager.merge(entity);
     }
 
     @Override
-    public void deleteById(ID id)
-    {
-        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-        CriteriaDelete<E> query = builder.createCriteriaDelete(this.entityClass);
+    public void delete(E entity) {
+        entityManager.remove(entity);
+    }
 
-        this.entityManager.createQuery(query.where(
-                builder.equal(query.from(this.entityClass).get("id"), id)
+    @Override
+    public void deleteById(ID id) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaDelete<E> query = builder.createCriteriaDelete(entityClass);
+
+        entityManager.createQuery(query.where(
+                builder.equal(query.from(entityClass).get("id"), id)
         )).executeUpdate();
     }
 
