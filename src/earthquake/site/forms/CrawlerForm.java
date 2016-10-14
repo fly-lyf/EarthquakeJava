@@ -8,16 +8,16 @@ import java.util.List;
  */
 public class CrawlerForm {
 
-    public String[] urls;
+    public List<String> urls;
     public String keywords;
     public String timeStr;
     public String timeSeq;
 
-    public String[] getUrls() {
+    public List<String> getUrls() {
         return urls;
     }
 
-    public void setUrls(String[] urls) {
+    public void setUrls(List<String> urls) {
         this.urls = urls;
     }
 

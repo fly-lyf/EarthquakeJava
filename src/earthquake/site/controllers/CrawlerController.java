@@ -34,11 +34,10 @@ public class CrawlerController {
         String[] setting = crawlerService.readSetting();
         CrawlerForm crawlerForm = new CrawlerForm();
         Iterable<EarthquakeUrls> list = urlsRepository.getAll();
-        int i = 0;
+        crawlerForm.urls = new ArrayList<String>();
         for (Iterator<EarthquakeUrls> iterator = list.iterator(); iterator.hasNext(); ) {
             EarthquakeUrls urlEntity = iterator.next();
-            crawlerForm.urls[i] = urlEntity.getUrl();
-            i++;
+            crawlerForm.urls.add(urlEntity.getUrl());
         }
         if (Pattern.compile("\\d{14}").matcher(setting[0]).find()) {
             crawlerForm.timeSeq = setting[0];
