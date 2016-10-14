@@ -26,7 +26,7 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 @ComponentScan(
-        basePackages = "earthquake.site.controller",
+        basePackages = "earthquake.site.controllers",
         useDefaultFilters = false,
         includeFilters = @ComponentScan.Filter(Controller.class)
 )

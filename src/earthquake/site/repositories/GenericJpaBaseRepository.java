@@ -81,5 +81,10 @@ public abstract class
         )).executeUpdate();
     }
 
+    @Override
+    public void deleteAll(){
+
+    }
+
 
 }

@@ -1,5 +1,6 @@
-package earthquake.site.controller;
+package earthquake.site.controllers;
 
+import earthquake.site.forms.SearchForm;
 import earthquake.site.entities.EarthquakeLeftbar;
 import earthquake.site.entities.EarthquakeWebpages;
 import earthquake.site.repositories.LeftBarRepository;
@@ -9,9 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by earthquake on 2016/10/8.
@@ -28,8 +27,8 @@ public class ListController {
     private static ArrayList<String> leftBar = new ArrayList<>();
 
     @ResponseBody
-    @RequestMapping(value = "/leftbar" , params = {"content"})
-    public Iterable<String> leftBarList(@RequestParam String content) {
+    @RequestMapping(value = "/leftbar")
+    public Iterable<String> leftBarList() {
         if(leftBar.size()<=0){
             Iterable<EarthquakeLeftbar> leftBarEntities = leftBarRepository.getAll();
             for (Iterator<EarthquakeLeftbar> iterator = leftBarEntities.iterator(); iterator.hasNext(); ) {
@@ -42,10 +41,9 @@ public class ListController {
 
     @ResponseBody
     @RequestMapping(value = "/search")
-    public Iterable<EarthquakeWebpages> searchList(Map<String, Object> model) {
-        System.out.println(model.size());
-        return null;
-//       return webpagesRepository.getByCondition(conditions);
+    public Iterable<EarthquakeWebpages> searchList(SearchForm form) {
+        System.out.println(form.getClass());
+       return webpagesRepository.getByCondition(form);
     }
 
 

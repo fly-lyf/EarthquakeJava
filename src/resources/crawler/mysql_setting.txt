@@ -1,14 +1,14 @@
 host:
-5717950a238ff.sh.cdb.myqcloud.com
+127.0.0.1
 
 port:
-7901
+3306
 
 user:
-cdb_outerroot
+earthquake
 
 password:
-earthquake2016
+123
 
 database:
 earthquake
@@ -17,4 +17,4 @@ webpages_table:
 earthquake_webpages
 
 urls_table:
-earthquake_url
+earthquake_urls

@@ -1,3 +1,1 @@
-﻿keywords:
-allwords:海域
-denywords:任职
+20161732128411;地震

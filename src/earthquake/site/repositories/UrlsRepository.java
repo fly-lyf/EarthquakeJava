@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class UrlsRepository extends GenericJpaBaseRepository<String, EarthquakeUrls> {
+public class UrlsRepository extends GenericJpaBaseRepository<Integer, EarthquakeUrls> {
 
 }

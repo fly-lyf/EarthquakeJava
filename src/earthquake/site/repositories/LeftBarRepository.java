@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class LeftBarRepository extends GenericJpaBaseRepository<String, EarthquakeLeftbar> {
+public class LeftBarRepository extends GenericJpaBaseRepository<Integer, EarthquakeLeftbar> {
 
 }

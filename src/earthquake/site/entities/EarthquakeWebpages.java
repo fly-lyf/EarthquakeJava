@@ -4,23 +4,22 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by fly on 2016/10/9.
+ * Created by fly on 2016/10/14.
  */
 @Entity
 @Table(name = "earthquake_webpages", schema = "", catalog = "earthquake")
 public class EarthquakeWebpages {
     private int id;
-    private String urlhash;
-    private String url;
+    private String eventid;
+    private Integer eventseq;
+    private String publishedtime;
+    private String keyword;
+    private String source;
     private String title;
-    private String h1;
-    private String h2;
-    private String topic;
+    private String summary;
     private String content;
-    private String htmlpath;
+    private String url;
     private Timestamp crawledtime;
-    private String allwords;
-    private String denywords;
 
     @Id
     @Column(name = "id")
@@ -33,23 +32,53 @@ public class EarthquakeWebpages {
     }
 
     @Basic
-    @Column(name = "urlhash")
-    public String getUrlhash() {
-        return urlhash;
+    @Column(name = "eventid")
+    public String getEventid() {
+        return eventid;
     }
 
-    public void setUrlhash(String urlhash) {
-        this.urlhash = urlhash;
+    public void setEventid(String eventid) {
+        this.eventid = eventid;
     }
 
     @Basic
-    @Column(name = "url")
-    public String getUrl() {
-        return url;
+    @Column(name = "eventseq")
+    public Integer getEventseq() {
+        return eventseq;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setEventseq(Integer eventseq) {
+        this.eventseq = eventseq;
+    }
+
+    @Basic
+    @Column(name = "publishedtime")
+    public String getPublishedtime() {
+        return publishedtime;
+    }
+
+    public void setPublishedtime(String publishedtime) {
+        this.publishedtime = publishedtime;
+    }
+
+    @Basic
+    @Column(name = "keyword")
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Basic
+    @Column(name = "source")
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     @Basic
@@ -63,33 +92,13 @@ public class EarthquakeWebpages {
     }
 
     @Basic
-    @Column(name = "h1")
-    public String getH1() {
-        return h1;
+    @Column(name = "summary")
+    public String getSummary() {
+        return summary;
     }
 
-    public void setH1(String h1) {
-        this.h1 = h1;
-    }
-
-    @Basic
-    @Column(name = "h2")
-    public String getH2() {
-        return h2;
-    }
-
-    public void setH2(String h2) {
-        this.h2 = h2;
-    }
-
-    @Basic
-    @Column(name = "topic")
-    public String getTopic() {
-        return topic;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     @Basic
@@ -103,13 +112,13 @@ public class EarthquakeWebpages {
     }
 
     @Basic
-    @Column(name = "htmlpath")
-    public String getHtmlpath() {
-        return htmlpath;
+    @Column(name = "url")
+    public String getUrl() {
+        return url;
     }
 
-    public void setHtmlpath(String htmlpath) {
-        this.htmlpath = htmlpath;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Basic
@@ -122,45 +131,26 @@ public class EarthquakeWebpages {
         this.crawledtime = crawledtime;
     }
 
-    @Basic
-    @Column(name = "allwords")
-    public String getAllwords() {
-        return allwords;
-    }
-
-    public void setAllwords(String allwords) {
-        this.allwords = allwords;
-    }
-
-    @Basic
-    @Column(name = "denywords")
-    public String getDenywords() {
-        return denywords;
-    }
-
-    public void setDenywords(String denywords) {
-        this.denywords = denywords;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EarthquakeWebpages that = (EarthquakeWebpages) o;
+        EarthquakeWebpages webpages = (EarthquakeWebpages) o;
 
-        if (id != that.id) return false;
-        if (urlhash != null ? !urlhash.equals(that.urlhash) : that.urlhash != null) return false;
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (h1 != null ? !h1.equals(that.h1) : that.h1 != null) return false;
-        if (h2 != null ? !h2.equals(that.h2) : that.h2 != null) return false;
-        if (topic != null ? !topic.equals(that.topic) : that.topic != null) return false;
-        if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (htmlpath != null ? !htmlpath.equals(that.htmlpath) : that.htmlpath != null) return false;
-        if (crawledtime != null ? !crawledtime.equals(that.crawledtime) : that.crawledtime != null) return false;
-        if (allwords != null ? !allwords.equals(that.allwords) : that.allwords != null) return false;
-        if (denywords != null ? !denywords.equals(that.denywords) : that.denywords != null) return false;
+        if (id != webpages.id) return false;
+        if (eventid != null ? !eventid.equals(webpages.eventid) : webpages.eventid != null) return false;
+        if (eventseq != null ? !eventseq.equals(webpages.eventseq) : webpages.eventseq != null) return false;
+        if (publishedtime != null ? !publishedtime.equals(webpages.publishedtime) : webpages.publishedtime != null)
+            return false;
+        if (keyword != null ? !keyword.equals(webpages.keyword) : webpages.keyword != null) return false;
+        if (source != null ? !source.equals(webpages.source) : webpages.source != null) return false;
+        if (title != null ? !title.equals(webpages.title) : webpages.title != null) return false;
+        if (summary != null ? !summary.equals(webpages.summary) : webpages.summary != null) return false;
+        if (content != null ? !content.equals(webpages.content) : webpages.content != null) return false;
+        if (url != null ? !url.equals(webpages.url) : webpages.url != null) return false;
+        if (crawledtime != null ? !crawledtime.equals(webpages.crawledtime) : webpages.crawledtime != null)
+            return false;
 
         return true;
     }
@@ -168,17 +158,16 @@ public class EarthquakeWebpages {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (urlhash != null ? urlhash.hashCode() : 0);
-        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (eventid != null ? eventid.hashCode() : 0);
+        result = 31 * result + (eventseq != null ? eventseq.hashCode() : 0);
+        result = 31 * result + (publishedtime != null ? publishedtime.hashCode() : 0);
+        result = 31 * result + (keyword != null ? keyword.hashCode() : 0);
+        result = 31 * result + (source != null ? source.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (h1 != null ? h1.hashCode() : 0);
-        result = 31 * result + (h2 != null ? h2.hashCode() : 0);
-        result = 31 * result + (topic != null ? topic.hashCode() : 0);
+        result = 31 * result + (summary != null ? summary.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (htmlpath != null ? htmlpath.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (crawledtime != null ? crawledtime.hashCode() : 0);
-        result = 31 * result + (allwords != null ? allwords.hashCode() : 0);
-        result = 31 * result + (denywords != null ? denywords.hashCode() : 0);
         return result;
     }
 }
