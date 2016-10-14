@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 
 /**
@@ -32,18 +33,26 @@ public class CrawlerController {
     public CrawlerForm information() {
         String[] setting = crawlerService.readSetting();
         CrawlerForm crawlerForm = new CrawlerForm();
-        crawlerForm.urlsList = (List<EarthquakeUrls>) urlsRepository.getAll();
-        if(!Pattern.compile("\\d{14}").matcher(setting[0]).find()){
-            crawlerForm.keywords = setting[1];
+        Iterable<EarthquakeUrls> list = urlsRepository.getAll();
+        int i = 0;
+        for (Iterator<EarthquakeUrls> iterator = list.iterator(); iterator.hasNext(); ) {
+            EarthquakeUrls urlEntity = iterator.next();
+            crawlerForm.urls[i] = urlEntity.getUrl();
+            i++;
         }
-        crawlerForm.time = setting[0];
+        if (Pattern.compile("\\d{14}").matcher(setting[0]).find()) {
+            crawlerForm.timeSeq = setting[0];
+        } else {
+            crawlerForm.keywords = setting[1];
+            crawlerForm.timeStr = setting[0];
+        }
         return crawlerForm;
     }
 
     @ResponseBody
     @RequestMapping(value = "/start")
-    public HashMap<String, Integer> startCrawler(String urls, String keywords, String allwords, String denywords) {
-        int status = crawlerService.updateParams(urls, keywords, allwords, denywords);
+    public HashMap<String, Integer> startCrawler(CrawlerForm form) {
+        int status = crawlerService.updateParams(form);
         HashMap<String, Integer> statusMap = new HashMap<>();
         if (status == Status.SUCCESS.getValue()) {
             status = crawlerService.startCrawler();

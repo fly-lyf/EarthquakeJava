@@ -1,7 +1,6 @@
 package earthquake.site.forms;
 
-import earthquake.site.entities.EarthquakeUrls;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,16 +8,17 @@ import java.util.List;
  */
 public class CrawlerForm {
 
-    public List<EarthquakeUrls> urlsList;
+    public String[] urls;
     public String keywords;
-    public String time;
+    public String timeStr;
+    public String timeSeq;
 
-    public List<EarthquakeUrls> getUrlsList() {
-        return urlsList;
+    public String[] getUrls() {
+        return urls;
     }
 
-    public void setUrlsList(List<EarthquakeUrls> urlsList) {
-        this.urlsList = urlsList;
+    public void setUrls(String[] urls) {
+        this.urls = urls;
     }
 
     public String getKeywords() {
@@ -29,11 +29,19 @@ public class CrawlerForm {
         this.keywords = keywords;
     }
 
-    public String getTime() {
-        return time;
+    public String getTimeStr() {
+        return timeStr;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTimeStr(String timeStr) {
+        this.timeStr = timeStr;
+    }
+
+    public String getTimeSeq() {
+        return timeSeq;
+    }
+
+    public void setTimeSeq(String timeSeq) {
+        this.timeSeq = timeSeq;
     }
 }

@@ -1,5 +1,6 @@
 package earthquake.site.services;
 
+import earthquake.site.forms.CrawlerForm;
 import earthquake.site.forms.Status;
 import earthquake.site.repositories.UrlsRepository;
 import org.apache.logging.log4j.LogManager;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.io.*;
-import java.util.HashMap;
 
 /**
  * Created by fly on 2016/10/13.
@@ -21,7 +21,6 @@ public class CrawlerService {
     private UrlsRepository urlsRepository;
 
     private static final Logger log = LogManager.getLogger();
-    private static final Logger schedulingLogger = LogManager.getLogger(log.getName() + ".[scheduling]");
 
     public int startCrawler() {
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
@@ -46,11 +45,18 @@ public class CrawlerService {
         }
     }
 
-    public int updateParams(String urls, String keywords, String allwords, String denywords) {
-        HashMap<String, String> statusMap = new HashMap<>();
-        int keywordStatus = setSetting(keywords, allwords, denywords);
+    public int updateParams(CrawlerForm form) {
+        String time;
+        String keywords = "";
+        if (!form.getTimeSeq().equals("") && form.getTimeStr().equals("")) {
+            time = form.getTimeSeq();
+        } else {
+            time = form.getTimeStr();
+            keywords = form.getKeywords();
+        }
+        int keywordStatus = setSetting(time, keywords);
         if (keywordStatus == Status.SUCCESS.getValue()) {
-        //todo-fly 加入url仓库读写
+            //todo-fly 加入url仓库读写
             return Status.SUCCESS.getValue();
         } else {
             return Status.FAIL.getValue();
@@ -93,16 +99,12 @@ public class CrawlerService {
     /**
      * 写入setting.txt
      *
+     * @param time
      * @param keywords
-     * @param allwords
-     * @param denywords
      * @return
      */
-    public int setSetting(String keywords, String allwords, String denywords) {
-        String out = "";
-        out += "keywords=" + keywords;
-        out += "allwords=" + allwords;
-        out += "denywords=" + denywords;
+    public int setSetting(String time, String keywords) {
+        String out = time + ";" + keywords;
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         String settingPath = rootPath + "crawler/setting.txt";
         FileWriter fw;

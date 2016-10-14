@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+    <meta charset="UTF-8">
+    <title>智能预测系统</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="content_list/content_list.js"></script>
+    <script src="content_detail/content_detail.js"></script>
+    <script src="services.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="main.css" type="text/css"/>
+</head>
+<body>
+<div class="navbar navbar-fixed-top nav-top" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".navbar-collapse">
+            <span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span
+                class="icon-bar"></span> <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand brand-title">智能预测系统</a>
+    </div>
+</div>
+<div class="main-content" ng-view></div>
+</body>
+</html>
