@@ -11,7 +11,7 @@ public class SearchForm {
     public String orderName;
     public String order;
     public String eventId;
-    public String type;
+    public String typename;
     public String title;
     public String summary;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -48,12 +48,12 @@ public class SearchForm {
         this.eventId = eventId;
     }
 
-    public String getType() {
-        return type;
+    public String getTypename() {
+        return typename;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypename(String typename) {
+        this.typename = typename;
     }
 
     public String getTitle() {

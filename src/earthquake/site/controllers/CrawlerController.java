@@ -6,7 +6,9 @@ import earthquake.site.entities.EarthquakeUrls;
 import earthquake.site.repositories.UrlsRepository;
 import earthquake.site.services.CrawlerService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
@@ -49,8 +51,8 @@ public class CrawlerController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/start")
-    public HashMap<String, Integer> startCrawler(CrawlerForm form) {
+    @RequestMapping(value = "/start", method = RequestMethod.POST)
+    public HashMap<String, Integer> startCrawler(@RequestBody CrawlerForm form) {
         int status = crawlerService.updateParams(form);
         HashMap<String, Integer> statusMap = new HashMap<>();
         if (status == Status.SUCCESS.getValue()) {

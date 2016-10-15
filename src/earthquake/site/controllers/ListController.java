@@ -45,6 +45,4 @@ public class ListController {
         System.out.println(form.getClass());
        return webpagesRepository.getByCondition(form);
     }
-
-
 }

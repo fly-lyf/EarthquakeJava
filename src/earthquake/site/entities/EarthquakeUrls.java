@@ -3,18 +3,17 @@ package earthquake.site.entities;
 import javax.persistence.*;
 
 /**
- * Created by fly on 2016/10/9.
+ * Created by fly on 2016/10/15.
  */
 @Entity
-@Table(name = "earthquake_urls", schema = "", catalog = "earthquake")
+@Table(name = "earthquake_urls", schema = "earthquake", catalog = "")
 public class EarthquakeUrls {
     private int id;
     private String url;
     private String notes;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -24,7 +23,7 @@ public class EarthquakeUrls {
     }
 
     @Basic
-    @Column(name = "url")
+    @Column(name = "url", nullable = true, length = 255)
     public String getUrl() {
         return url;
     }
@@ -34,7 +33,7 @@ public class EarthquakeUrls {
     }
 
     @Basic
-    @Column(name = "notes")
+    @Column(name = "notes", nullable = true, length = 255)
     public String getNotes() {
         return notes;
     }
@@ -48,11 +47,11 @@ public class EarthquakeUrls {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EarthquakeUrls that = (EarthquakeUrls) o;
+        EarthquakeUrls urls = (EarthquakeUrls) o;
 
-        if (id != that.id) return false;
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (notes != null ? !notes.equals(that.notes) : that.notes != null) return false;
+        if (id != urls.id) return false;
+        if (url != null ? !url.equals(urls.url) : urls.url != null) return false;
+        if (notes != null ? !notes.equals(urls.notes) : urls.notes != null) return false;
 
         return true;
     }

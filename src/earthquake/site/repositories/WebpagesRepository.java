@@ -52,10 +52,12 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
             } else if (key.equals("publishedEndTime")) {
                 query += "entity.publishedtime < " + format.format(entry.getValue());
 
-            } else if (key.equals("title") || key.equals("content") || key.equals("type") || key.equals("summary")) {
+            } else if (key.equals("title") || key.equals("content") || key.equals("typename") || key.equals("summary")) {
                 query += "entity." + key + " like '%" + entry.getValue() + "%'";
+
             } else if (key.equals("eventid")) {
                 query += "entity.eventid = " + entry.getValue();
+
             } else if (key.equals("order") || key.equals("orderName")) {
                 query = query.substring(0, query.lastIndexOf(" and "));
             }

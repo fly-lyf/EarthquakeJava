@@ -17,9 +17,6 @@ import java.io.*;
 @Service
 public class CrawlerService {
 
-    @Inject
-    private UrlsRepository urlsRepository;
-
     private static final Logger log = LogManager.getLogger();
 
     public int startCrawler() {
@@ -47,7 +44,7 @@ public class CrawlerService {
 
     public int updateParams(CrawlerForm form) {
         String time;
-        String keywords = "";
+        String keywords = "地震";
         if (!form.getTimeSeq().equals("") && form.getTimeStr().equals("")) {
             time = form.getTimeSeq();
         } else {
@@ -56,42 +53,8 @@ public class CrawlerService {
         }
         int keywordStatus = setSetting(time, keywords);
         if (keywordStatus == Status.SUCCESS.getValue()) {
-            //todo-fly 加入url仓库读写
             return Status.SUCCESS.getValue();
         } else {
-            return Status.FAIL.getValue();
-        }
-    }
-
-    /**
-     * 写入mysql_setting.txt
-     *
-     * @param host
-     * @param port
-     * @param user
-     * @param password
-     * @return
-     */
-    public int setDatasource(String host, String port, String user, String password) {
-        String out = "";
-        out += "host=" + host + "\r\n";
-        out += "port=" + port + "\r\n";
-        out += "user=" + user + "\r\n";
-        out += "password=" + password + "\r\n";
-        out += "database=earthquake\r\n";
-        out += "webpages_table=earthquake_webpages\r\n";
-        out += "urls_table=earthquake_url";
-        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        String settingPath = rootPath + "crawler/mysql_setting.txt";
-        FileWriter fw;
-        try {
-            fw = new FileWriter(settingPath);
-            fw.write(out);
-            fw.close();
-            return Status.SUCCESS.getValue();
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.error(e);
             return Status.FAIL.getValue();
         }
     }
@@ -107,11 +70,12 @@ public class CrawlerService {
         String out = time + ";" + keywords;
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         String settingPath = rootPath + "crawler/setting.txt";
-        FileWriter fw;
         try {
-            fw = new FileWriter(settingPath);
-            fw.write(out);
-            fw.close();
+            OutputStreamWriter writer = new OutputStreamWriter(
+                    new FileOutputStream(settingPath),"UTF-8");
+            writer.write(out);
+            writer.flush();
+            writer.close();
             return Status.SUCCESS.getValue();
         } catch (IOException e) {
             e.printStackTrace();
