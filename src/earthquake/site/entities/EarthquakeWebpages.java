@@ -47,7 +47,7 @@ public class EarthquakeWebpages {
 
     @Basic
     @Column(name = "publishedtime", nullable = true, length = 30)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd")
     public String getPublishedtime() {
         return publishedtime;
     }
@@ -118,7 +118,7 @@ public class EarthquakeWebpages {
 
     @Basic
     @Column(name = "crawledtime", nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd")
     public Timestamp getCrawledtime() {
         return crawledtime;
     }

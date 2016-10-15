@@ -48,7 +48,8 @@ public class CrawlerService {
         if (!form.getTimeSeq().equals("") && form.getTimeStr().equals("")) {
             time = form.getTimeSeq();
         } else {
-            time = form.getTimeStr();
+            String[] splits = form.getTimeStr().split("-");
+            time = splits[0] + "年" + splits[1] + "月" + splits[2] + "日";
             keywords = form.getKeywords();
         }
         int keywordStatus = setSetting(time, keywords);
@@ -72,7 +73,7 @@ public class CrawlerService {
         String settingPath = rootPath + "crawler/setting.txt";
         try {
             OutputStreamWriter writer = new OutputStreamWriter(
-                    new FileOutputStream(settingPath),"UTF-8");
+                    new FileOutputStream(settingPath), "UTF-8");
             writer.write(out);
             writer.flush();
             writer.close();

@@ -1,8 +1,10 @@
 package earthquake.site.controllers;
 
+import earthquake.site.entities.EarthquakeLog;
 import earthquake.site.forms.CrawlerForm;
 import earthquake.site.forms.Status;
 import earthquake.site.entities.EarthquakeUrls;
+import earthquake.site.repositories.LogRepository;
 import earthquake.site.repositories.UrlsRepository;
 import earthquake.site.services.CrawlerService;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Pattern;
@@ -27,6 +30,8 @@ public class CrawlerController {
 
     @Inject
     private UrlsRepository urlsRepository;
+    @Inject
+    private LogRepository logRepository;
     @Inject
     private CrawlerService crawlerService;
 
@@ -73,5 +78,11 @@ public class CrawlerController {
         HashMap<String, Integer> statusMap = new HashMap<>();
         statusMap.put("status", status);
         return statusMap;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/process")
+    public Iterable<EarthquakeLog> getCrawlerProcess() {
+        return logRepository.getTwoMinutes();
     }
 }
