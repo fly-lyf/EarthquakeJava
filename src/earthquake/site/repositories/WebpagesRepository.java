@@ -1,6 +1,8 @@
 package earthquake.site.repositories;
 import earthquake.site.forms.SearchForm;
 import earthquake.site.entities.EarthquakeWebpages;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.Field;
@@ -13,6 +15,8 @@ import java.util.*;
 
 @Repository
 public class WebpagesRepository extends GenericJpaBaseRepository<Integer, EarthquakeWebpages> {
+
+    private static final Logger log = LogManager.getLogger();
 
     public Iterable<EarthquakeWebpages> getByCondition(SearchForm form) {
         String query = "select entity from EarthquakeWebpages entity";
@@ -37,12 +41,16 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
         for (Iterator<Map.Entry<String, Object>> iterator = attrsMap.entrySet().iterator(); iterator.hasNext(); ) {
             Map.Entry<String, Object> entry = iterator.next();
             String key = entry.getKey();
+            if (entry.getValue().equals("")) {
+                continue;
+            }
             if (firstFlag) {
                 firstFlag = false;
                 query += " where ";
             } else {
                 query += " and ";
             }
+
             if (key.equals("crawledStartTime")) {
                 query += "entity.crawledtime > " + format.format(entry.getValue());
             } else if (key.equals("crawledEndTime")) {
@@ -52,11 +60,11 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
             } else if (key.equals("publishedEndTime")) {
                 query += "entity.publishedtime < " + format.format(entry.getValue());
 
-            } else if (key.equals("title") || key.equals("content") || key.equals("typename") || key.equals("summary")) {
+            } else if (key.equals("title") || key.equals("content") || key.equals("summary")) {
                 query += "entity." + key + " like '%" + entry.getValue() + "%'";
 
-            } else if (key.equals("eventid")) {
-                query += "entity.eventid = " + entry.getValue();
+            } else if (key.equals("eventid") || key.equals("typename")) {
+                query += "entity." + key + "='" + entry.getValue() + "'";
 
             } else if (key.equals("order") || key.equals("orderName")) {
                 query = query.substring(0, query.lastIndexOf(" and "));
@@ -71,6 +79,7 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
             }
             query += " order by entity." + attrsMap.get("orderName") + " " + sqlOrder;
         }
+        log.info(query);
         System.out.println(query);
         TypedQuery<EarthquakeWebpages> typedQuery = entityManager.createQuery(query, entityClass);
         return typedQuery.getResultList();
