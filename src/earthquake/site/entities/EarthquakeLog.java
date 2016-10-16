@@ -50,7 +50,7 @@ public class EarthquakeLog {
 
     @Basic
     @Column(name = "time", nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Timestamp getTime() {
         return time;
     }

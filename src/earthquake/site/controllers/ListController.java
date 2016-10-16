@@ -24,19 +24,15 @@ public class ListController {
     @Inject
     private WebpagesRepository webpagesRepository;
 
-    private static ArrayList<String> leftBar = new ArrayList<>();
+    private static ArrayList<EarthquakeLeftbar> leftBar = new ArrayList<EarthquakeLeftbar>();
 
     @ResponseBody
     @RequestMapping(value = "/leftbar")
-    public Iterable<String> leftBarList() {
-        if(leftBar.size()<=0){
-            Iterable<EarthquakeLeftbar> leftBarEntities = leftBarRepository.getAll();
-            for (Iterator<EarthquakeLeftbar> iterator = leftBarEntities.iterator(); iterator.hasNext(); ) {
-                EarthquakeLeftbar next = iterator.next();
-                leftBar.add(next.getColumn());
-            }
+    public ArrayList<EarthquakeLeftbar> leftBarList() {
+        if (leftBar.size() <= 0) {
+            leftBar = (ArrayList<EarthquakeLeftbar>) leftBarRepository.getAll();
         }
-       return leftBar;
+        return leftBar;
     }
 
     @ResponseBody
@@ -44,7 +40,7 @@ public class ListController {
     public HashMap<String, Object> searchList(SearchForm form) {
         HashMap<String, Object> result = new HashMap<>();
         result.put("list", webpagesRepository.getByCondition(form));
-        result.put("pageTotal", webpagesRepository.getCount());
-       return result;
+        result.put("pageTotal", webpagesRepository.getCount(form));
+        return result;
     }
 }

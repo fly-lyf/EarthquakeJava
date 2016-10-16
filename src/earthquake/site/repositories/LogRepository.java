@@ -16,7 +16,7 @@ public class LogRepository extends GenericJpaBaseRepository<Integer, EarthquakeL
 
     public Iterable<EarthquakeLog> getTwoMinutes() {
         Date twoMinutes = new Date(new Date().getTime() - 60000);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = sdf.format(twoMinutes);
         String query = "from EarthquakeLog log where log.time >= :date order by log.time desc";
         Query typedQuery = entityManager.createQuery(query, entityClass);

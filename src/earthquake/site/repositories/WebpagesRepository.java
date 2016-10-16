@@ -21,20 +21,21 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
     private static final Logger log = LogManager.getLogger();
 
     public Iterable<EarthquakeWebpages> getByCondition(SearchForm form) {
-        if(form.pageCount.equals("")){
+        if (form.pageCount.equals("")) {
             form.pageCount = "1";
         }
-        if(form.pageNum.equals("")){
-            form.pageNum = "20";
+        if (form.pageNum.equals("")) {
+            form.pageNum = "10";
         }
         TypedQuery typedQuery = getQuery(form);
         return typedQuery.getResultList();
     }
 
-    public long getCount() {
-        String query = "select count(entity) from EarthquakeWebpages entity";
-        TypedQuery<Long> typedQuery = entityManager.createQuery(query, Long.class);
-        return typedQuery.getSingleResult();
+    public long getCount(SearchForm form) {
+        form.pageCount = "";
+        form.pageNum = "";
+        TypedQuery typedQuery = getQuery(form);
+        return typedQuery.getResultList().size();
     }
 
     public TypedQuery getQuery(SearchForm form) {
@@ -87,23 +88,27 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
                 query += "entity." + key + "='" + entry.getValue() + "'";
 
             } else if (key.equals("order") || key.equals("orderName")) {
-                query = query.substring(0, query.lastIndexOf(" and "));
+                if (!query.contains("and")) {
+                    firstFlag = true;
+                    query = query.substring(0, query.lastIndexOf(" where "));
+                } else {
+                    query = query.substring(0, query.lastIndexOf(" and "));
+                }
             }
         }
-        if (!firstFlag) {
-            attrsMap.putIfAbsent("order", "2");
-            attrsMap.putIfAbsent("orderName", "crawledtime");
-            String sqlOrder = "";
-            if (attrsMap.get("order").equals("2")) {
-                sqlOrder = "desc";
-            }
-            query += " order by entity." + attrsMap.get("orderName") + " " + sqlOrder;
+        attrsMap.putIfAbsent("order", "2");
+        attrsMap.putIfAbsent("orderName", "crawledtime");
+        String sqlOrder = "";
+        if (attrsMap.get("order").equals("2")) {
+            sqlOrder = "desc";
         }
+        query += " order by entity." + attrsMap.get("orderName") + " " + sqlOrder;
+
         log.info(query);
         System.out.println(query);
         TypedQuery<EarthquakeWebpages> typedQuery = entityManager.createQuery(query, entityClass);
 
-        if(!attrsMap.get("pageCount").equals("")){
+        if (!attrsMap.get("pageCount").equals("")) {
             Integer pageCount = Integer.parseInt((String) attrsMap.get("pageCount"));
             Integer pageNum = Integer.parseInt((String) attrsMap.get("pageNum"));
             typedQuery.setFirstResult((pageCount - 1) * pageNum).setMaxResults(pageNum);
