@@ -49,6 +49,12 @@ public class CrawlerService {
             time = form.getTimeSeq();
         } else {
             String[] splits = form.getTimeStr().split("-");
+            if (splits[1].substring(0, 1).equals("0")) {
+                splits[1] = splits[1].substring(1, splits[1].length());
+            }
+            if (splits[2].substring(0, 1).equals("0")) {
+                splits[2] = splits[2].substring(1, splits[2].length());
+            }
             time = splits[0] + "年" + splits[1] + "月" + splits[2] + "日";
             keywords = form.getKeywords();
         }

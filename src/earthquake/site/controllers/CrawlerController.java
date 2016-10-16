@@ -50,7 +50,22 @@ public class CrawlerController {
             crawlerForm.timeSeq = setting[0];
         } else {
             crawlerForm.keywords = setting[1];
-            crawlerForm.timeStr = setting[0];
+            if (setting[0].contains("年")) {
+                String year = setting[0].substring(0, setting[0].indexOf("年"));
+                String month = setting[0].substring(setting[0].indexOf("年") + 1, setting[0].indexOf("月"));
+                String day = setting[0].substring(setting[0].indexOf("月") + 1, setting[0].indexOf("日"));
+                if (month.length() == 1) {
+                    month = "0" + month;
+                }
+                if (day.length() == 1) {
+                    day = "0" + day;
+                }
+                String timeFormat = year + "-" + month + "-" + day;
+                crawlerForm.timeStr = timeFormat;
+            } else {
+                crawlerForm.timeStr = setting[0];
+
+            }
         }
         return crawlerForm;
     }
