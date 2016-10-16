@@ -23,6 +23,8 @@ public class SearchForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date publishedEndTime;
     public String content;
+    public String pageCount;
+    public String pageNum;
 
     public String getOrderName() {
         return orderName;
@@ -110,5 +112,21 @@ public class SearchForm {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(String pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public String getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(String pageNum) {
+        this.pageNum = pageNum;
     }
 }

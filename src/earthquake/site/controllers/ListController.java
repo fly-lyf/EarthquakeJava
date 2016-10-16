@@ -2,7 +2,6 @@ package earthquake.site.controllers;
 
 import earthquake.site.forms.SearchForm;
 import earthquake.site.entities.EarthquakeLeftbar;
-import earthquake.site.entities.EarthquakeWebpages;
 import earthquake.site.repositories.LeftBarRepository;
 import earthquake.site.repositories.WebpagesRepository;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -41,8 +41,10 @@ public class ListController {
 
     @ResponseBody
     @RequestMapping(value = "/search")
-    public Iterable<EarthquakeWebpages> searchList(SearchForm form) {
-        System.out.println(form.getClass());
-       return webpagesRepository.getByCondition(form);
+    public HashMap<String, Object> searchList(SearchForm form) {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("list", webpagesRepository.getByCondition(form));
+        result.put("pageTotal", webpagesRepository.getCount());
+       return result;
     }
 }

@@ -1,9 +1,11 @@
 package earthquake.site.repositories;
+
 import earthquake.site.forms.SearchForm;
 import earthquake.site.entities.EarthquakeWebpages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.TypedQuery;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -19,6 +21,23 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
     private static final Logger log = LogManager.getLogger();
 
     public Iterable<EarthquakeWebpages> getByCondition(SearchForm form) {
+        if(form.pageCount.equals("")){
+            form.pageCount = "1";
+        }
+        if(form.pageNum.equals("")){
+            form.pageNum = "20";
+        }
+        TypedQuery typedQuery = getQuery(form);
+        return typedQuery.getResultList();
+    }
+
+    public long getCount() {
+        String query = "select count(entity) from EarthquakeWebpages entity";
+        TypedQuery<Long> typedQuery = entityManager.createQuery(query, Long.class);
+        return typedQuery.getSingleResult();
+    }
+
+    public TypedQuery getQuery(SearchForm form) {
         String query = "select entity from EarthquakeWebpages entity";
         boolean firstFlag = true;
         DateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
@@ -39,9 +58,10 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
 
         }
         for (Iterator<Map.Entry<String, Object>> iterator = attrsMap.entrySet().iterator(); iterator.hasNext(); ) {
+
             Map.Entry<String, Object> entry = iterator.next();
             String key = entry.getKey();
-            if (entry.getValue().equals("")) {
+            if (entry.getValue().equals("") || key.contains("page")) {
                 continue;
             }
             if (firstFlag) {
@@ -82,6 +102,13 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
         log.info(query);
         System.out.println(query);
         TypedQuery<EarthquakeWebpages> typedQuery = entityManager.createQuery(query, entityClass);
-        return typedQuery.getResultList();
+
+        if(!attrsMap.get("pageCount").equals("")){
+            Integer pageCount = Integer.parseInt((String) attrsMap.get("pageCount"));
+            Integer pageNum = Integer.parseInt((String) attrsMap.get("pageNum"));
+            typedQuery.setFirstResult((pageCount - 1) * pageNum).setMaxResults(pageNum);
+        }
+
+        return typedQuery;
     }
 }

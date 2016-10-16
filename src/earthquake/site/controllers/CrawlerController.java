@@ -7,6 +7,8 @@ import earthquake.site.entities.EarthquakeUrls;
 import earthquake.site.repositories.LogRepository;
 import earthquake.site.repositories.UrlsRepository;
 import earthquake.site.services.CrawlerService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,8 @@ public class CrawlerController {
     private LogRepository logRepository;
     @Inject
     private CrawlerService crawlerService;
+
+    private static final Logger log = LogManager.getLogger();
 
     @ResponseBody
     @RequestMapping(value = "")
@@ -89,6 +93,8 @@ public class CrawlerController {
     @ResponseBody
     @RequestMapping(value = "/stop")
     public HashMap<String, Integer> stopCrawler() {
+        System.out.println("stop");
+        log.info("stop");
         int status = crawlerService.killCrawler();
         HashMap<String, Integer> statusMap = new HashMap<>();
         statusMap.put("status", status);
