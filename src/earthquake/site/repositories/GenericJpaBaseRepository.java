@@ -57,8 +57,28 @@ public abstract class
     }
 
     @Override
-    public void deleteAll(){
+    public void add(E entity) {
+        entityManager.persist(entity);
+    }
 
+    @Override
+    public void update(E entity) {
+        entityManager.merge(entity);
+    }
+
+    @Override
+    public void delete(E entity) {
+        entityManager.remove(entity);
+    }
+
+    @Override
+    public void deleteById(ID id) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaDelete<E> query = builder.createCriteriaDelete(entityClass);
+
+        entityManager.createQuery(query.where(
+                builder.equal(query.from(entityClass).get("id"), id)
+        )).executeUpdate();
     }
 
 

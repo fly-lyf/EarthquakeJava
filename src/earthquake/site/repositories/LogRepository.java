@@ -4,6 +4,9 @@ import earthquake.site.entities.EarthquakeLog;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -22,5 +25,17 @@ public class LogRepository extends GenericJpaBaseRepository<Integer, EarthquakeL
         Query typedQuery = entityManager.createQuery(query, entityClass);
         typedQuery.setParameter("date", twoMinutes);
         return typedQuery.getResultList();
+    }
+
+    public void deleteLogs() {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+        CriteriaDelete<EarthquakeLog> query = builder.createCriteriaDelete(entityClass);
+
+        int result = entityManager.createQuery(query.where(
+                builder.gt(query.from(entityClass).get("id"), 1000)
+        )).executeUpdate();
+
+        System.out.println("结果是：" + result);
     }
 }
