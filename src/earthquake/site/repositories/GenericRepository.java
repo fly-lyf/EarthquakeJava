@@ -1,5 +1,6 @@
 package earthquake.site.repositories;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
@@ -13,14 +14,6 @@ public interface GenericRepository<ID extends Serializable, E>
     Iterable<E> getAll();
 
     E get(@NotNull ID id);
-
-    void add(@NotNull E entity);
-
-    void update(@NotNull E entity);
-
-    void delete(@NotNull E entity);
-
-    void deleteById(@NotNull ID id);
 
     void deleteAll();
 }
