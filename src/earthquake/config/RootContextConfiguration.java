@@ -53,6 +53,7 @@ public class RootContextConfiguration {
         return lookup.getDataSource("jdbc/Earthquake");
     }
 
+    //todo-fly 修改数据源类型
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean()
     {

@@ -63,6 +63,7 @@ public class CrawlerService {
         }
     }
 
+    //todo-fly 写入数据库配置
     /**
      * 写入mysql_setting.txt
      *
@@ -142,10 +143,10 @@ public class CrawlerService {
                 read.close();
                 lines = result.split(";");
             } else {
-                log.error("找不到指定的文件");
+                log.error("找不到指定的文件cannont find the file");
             }
         } catch (Exception e) {
-            log.error("读取文件内容出错");
+            log.error("读取文件内容出错reading error");
             e.printStackTrace();
         }
         return lines;
