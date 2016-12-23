@@ -4,7 +4,6 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Map;
 
 @Validated
 public interface GenericRepository<ID extends Serializable, E>
@@ -21,6 +20,4 @@ public interface GenericRepository<ID extends Serializable, E>
     void delete(@NotNull E entity);
 
     void deleteById(@NotNull ID id);
-
-    void deleteAll();
 }

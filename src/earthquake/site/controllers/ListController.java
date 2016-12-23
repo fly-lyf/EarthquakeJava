@@ -2,7 +2,6 @@ package earthquake.site.controllers;
 
 import earthquake.site.forms.SearchForm;
 import earthquake.site.entities.EarthquakeLeftbar;
-import earthquake.site.entities.EarthquakeWebpages;
 import earthquake.site.repositories.LeftBarRepository;
 import earthquake.site.repositories.WebpagesRepository;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -24,27 +24,23 @@ public class ListController {
     @Inject
     private WebpagesRepository webpagesRepository;
 
-    private static ArrayList<String> leftBar = new ArrayList<>();
+    private static ArrayList<EarthquakeLeftbar> leftBar = new ArrayList<EarthquakeLeftbar>();
 
     @ResponseBody
     @RequestMapping(value = "/leftbar")
-    public Iterable<String> leftBarList() {
-        if(leftBar.size()<=0){
-            Iterable<EarthquakeLeftbar> leftBarEntities = leftBarRepository.getAll();
-            for (Iterator<EarthquakeLeftbar> iterator = leftBarEntities.iterator(); iterator.hasNext(); ) {
-                EarthquakeLeftbar next = iterator.next();
-                leftBar.add(next.getColumn());
-            }
+    public ArrayList<EarthquakeLeftbar> leftBarList() {
+        if (leftBar.size() <= 0) {
+            leftBar = (ArrayList<EarthquakeLeftbar>) leftBarRepository.getAll();
         }
-       return leftBar;
+        return leftBar;
     }
 
     @ResponseBody
     @RequestMapping(value = "/search")
-    public Iterable<EarthquakeWebpages> searchList(SearchForm form) {
-        System.out.println(form.getClass());
-       return webpagesRepository.getByCondition(form);
+    public HashMap<String, Object> searchList(SearchForm form) {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("list", webpagesRepository.getByCondition(form));
+        result.put("pageTotal", webpagesRepository.getCount(form));
+        return result;
     }
-
-
 }

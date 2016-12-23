@@ -3,16 +3,16 @@ package earthquake.site.entities;
 import javax.persistence.*;
 
 /**
- * Created by fly on 2016/10/9.
+ * Created by fly on 2016/10/15.
  */
 @Entity
-@Table(name = "earthquake_leftbar", schema = "", catalog = "earthquake")
+@Table(name = "earthquake_leftbar", schema = "earthquake", catalog = "")
 public class EarthquakeLeftbar {
     private int id;
     private String column;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -22,7 +22,7 @@ public class EarthquakeLeftbar {
     }
 
     @Basic
-    @Column(name = "column")
+    @Column(name = "column", nullable = true, length = 255)
     public String getColumn() {
         return column;
     }

@@ -1,5 +1,7 @@
 package earthquake.site.forms;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,16 +10,17 @@ import java.util.List;
  */
 public class CrawlerForm {
 
-    public String[] urls;
+    public List<String> urls;
     public String keywords;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public String timeStr;
     public String timeSeq;
 
-    public String[] getUrls() {
+    public List<String> getUrls() {
         return urls;
     }
 
-    public void setUrls(String[] urls) {
+    public void setUrls(List<String> urls) {
         this.urls = urls;
     }
 
