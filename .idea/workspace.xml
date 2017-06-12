@@ -7,118 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24769f25-5750-4608-a7f1-9921e63673da" name="Default" comment="跟叶红星代码的初步合并">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeHistoryInfoService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeHistoryInfoServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeInfoService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeInfoServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/dao/EarthquakeLossDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/dao/EarthquakeLossDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeLossService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeLossServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/dao/EarthquakeNearcityDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/dao/EarthquakeNearcityDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeNearcityInfoService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeNearcityInfoServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/dao/EarthquakeRespondDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/dao/EarthquakeRespondDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeRespondService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeRespondServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/dao/EarthquakeRuleDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/dao/EarthquakeRuleDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeRuleService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/earthquake/site/service/EarthquakeRuleServiceImpl.java" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Crypto.Cipher._AES.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Crypto.Cipher._DES.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Crypto.Cipher._DES3.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Crypto.Hash._SHA256.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Crypto.Random.OSRNG.winrandom.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Crypto.Util._counter.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Crypto.Util.strxor.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Cython.Compiler.Code.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Cython.Compiler.FlowControl.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Cython.Compiler.Parsing.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Cython.Compiler.Scanning.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\Cython.Compiler.Visitor.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\LIBEAY32.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\MSVCP90.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\PIL._imaging.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\PyQt4.QtCore.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\PyQt4.QtGui.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\PyQt4.QtSvg.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\QtCore4.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\QtGui4.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\QtSvg4.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\SSLEAY32.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_cffi_backend.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_ctypes.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_elementtree.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_hashlib.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_msi.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_multiprocessing.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_socket.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_sqlite3.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_ssl.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_tkinter.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\_yaml.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\bz2.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\cryptography.hazmat.bindings._constant_time.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\cryptography.hazmat.bindings._openssl.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\cryptography.hazmat.bindings._padding.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\libpng16.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\library.zip" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\libsodium.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\lxml.etree.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\lxml.objectify.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\markupsafe._speedups.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\menuinst.winshortcut.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\mime.types" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\mistune.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\mkl_intel_thread.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\numpy.core.multiarray.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\numpy.core.umath.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\numpy.fft.fftpack_lite.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\numpy.linalg._umath_linalg.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\numpy.linalg.lapack_lite.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\numpy.random.mtrand.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\psutil._psutil_windows.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\pycosat.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\pyexpat.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\python27.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\pythoncom27.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\pywintypes27.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\scrapy.cfg" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\select.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\setupspider.exe" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\sip.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\sqlite3.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\tcl85.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\tk85.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\tornado.speedups.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\twisted.internet.iocpreactor.iocpsupport.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\unicodedata.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32api.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32clipboard.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32com.shell.shell.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32console.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32event.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32evtlog.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32file.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32gui.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32pdh.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32pipe.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32process.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32security.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\win32wnet.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\yaml.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\zlib.dll" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\zmq.libzmq.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\zope.interface._zope_interface_coptimizations.pyd" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\main_log.txt" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\mysql_setting.txt" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\setting.txt" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\src\resources\crawler\vocabulary.json" afterPath="" />
-      <change type="DELETED" beforePath="E:\Ideaproject\EarthquakeJava\.idea\workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="EarthquakeJava.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -184,8 +73,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29850745">
-              <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.089605734">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -420,7 +309,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -482,6 +370,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -635,8 +527,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1031,6 +924,7 @@
       <workItem from="1482487459373" duration="3227000" />
       <workItem from="1497245378715" duration="11671000" />
       <workItem from="1497258182933" duration="364000" />
+      <workItem from="1497258832955" duration="709000" />
     </task>
     <task id="LOCAL-00001" summary="重构项目">
       <created>1476006003598</created>
@@ -1102,7 +996,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51628000" />
+    <option name="totallyTimeSpent" value="52337000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1120,15 +1014,14 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295099" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5922836" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295099" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294509" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41918665" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41918665" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295099" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295099" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25761774" sideWeight="0.2303207" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25761774" sideWeight="0.77068216" order="0" side_tool="false" content_ui="combo" />
@@ -1144,6 +1037,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42335767" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5922836" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295099" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28154328" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1191,6 +1085,81 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/earthquake/config/RootContextConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="77" column="22" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/earthquake/site/service/EarthquakeHistoryInfoService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/earthquake/site/service/EarthquakeHistoryInfoServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="55" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/earthquake/config/ServletContextConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="64" column="7" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="7" />
+          <folding>
+            <marker date="1497258335312" expanded="true" signature="2355:2361" placeholder="//..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/earthquake/site/controllers/CrawlerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/earthquake/site/controllers/DetailController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/earthquake/site/dao/EarthquakeNearcityDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+          <folding>
+            <marker date="1497252556906" expanded="true" signature="1037:1131" placeholder="insert into ..." />
+            <marker date="1497252556906" expanded="true" signature="1363:1408" placeholder="select * fro..earth_relation..." />
+            <marker date="1497252556906" expanded="true" signature="1874:1922" placeholder="select * fro..nearcity_info..." />
+            <marker date="1497252556906" expanded="true" signature="2635:2683" placeholder="select * fro..nearcity_info..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/earthquake/config/RootContextConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1373,7 +1342,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="43" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1389,7 +1357,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1404,7 +1371,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="15" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1451,9 +1417,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="94" column="63" selection-start-line="94" selection-start-column="63" selection-end-line="94" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1513,8 +1476,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29850745">
-          <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.089605734">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
