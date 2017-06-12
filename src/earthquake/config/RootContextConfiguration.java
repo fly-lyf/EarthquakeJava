@@ -62,12 +62,14 @@ public class RootContextConfiguration implements AsyncConfigurer, SchedulingConf
         return mapper;
     }
 
+    //JNDI数据库连接池，具体配置文件在META-INF的context.xml中
     @Bean
     public DataSource earthquakeResource() {
         JndiDataSourceLookup lookup = new JndiDataSourceLookup();
         return lookup.getDataSource("jdbc/Earthquake");
     }
 
+    //数据库持久化工厂，用了hibernate框架
     //todo-fly 修改数据源类型
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
@@ -80,13 +82,14 @@ public class RootContextConfiguration implements AsyncConfigurer, SchedulingConf
                 new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(adapter);
         factory.setDataSource(this.earthquakeResource());
-        factory.setPackagesToScan("earthquake.site.entities");
+        factory.setPackagesToScan("earthquake.site.entity");
         factory.setSharedCacheMode(SharedCacheMode.ENABLE_SELECTIVE);
         factory.setValidationMode(ValidationMode.NONE);
         factory.setJpaPropertyMap(properties);
         return factory;
     }
 
+    //JTA 事务管理器，使用注解@Transaction，自动删除earthquakeLog记录里用到
     @Bean
     public PlatformTransactionManager jpaTransactionManager() {
         return new JpaTransactionManager(
@@ -94,6 +97,7 @@ public class RootContextConfiguration implements AsyncConfigurer, SchedulingConf
         );
     }
 
+    //线程池调度器，应该没用到
     @Bean
     public ThreadPoolTaskScheduler taskScheduler() {
         log.info("Setting up thread pool task scheduler with 20 threads.");
@@ -113,6 +117,7 @@ public class RootContextConfiguration implements AsyncConfigurer, SchedulingConf
         return scheduler;
     }
 
+    //异步任务调度器，没用到
     @Override
     public Executor getAsyncExecutor() {
         Executor executor = this.taskScheduler();
@@ -120,6 +125,7 @@ public class RootContextConfiguration implements AsyncConfigurer, SchedulingConf
         return executor;
     }
 
+    //定时任务调度器，使用注解@Scheduled，自动删除earthquakeLog记录里用到
     @Override
     public void configureTasks(ScheduledTaskRegistrar registrar) {
         TaskScheduler scheduler = this.taskScheduler();
