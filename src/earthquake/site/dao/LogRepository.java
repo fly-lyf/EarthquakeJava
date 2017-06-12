@@ -1,12 +1,11 @@
-package earthquake.site.repositories;
+package earthquake.site.dao;
 
-import earthquake.site.entities.EarthquakeLog;
+import earthquake.site.entity.EarthquakeLog;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
-import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package earthquake.site.entities;
+package earthquake.site.entity;
 
 import javax.persistence.*;
 

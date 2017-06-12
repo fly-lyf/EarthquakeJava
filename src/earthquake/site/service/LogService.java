@@ -1,6 +1,6 @@
-package earthquake.site.services;
+package earthquake.site.service;
 
-import earthquake.site.repositories.LogRepository;
+import earthquake.site.dao.LogRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 

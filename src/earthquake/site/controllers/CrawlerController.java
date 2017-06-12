@@ -1,12 +1,12 @@
 package earthquake.site.controllers;
 
-import earthquake.site.entities.EarthquakeLog;
+import earthquake.site.entity.EarthquakeLog;
 import earthquake.site.forms.CrawlerForm;
 import earthquake.site.forms.Status;
-import earthquake.site.entities.EarthquakeUrls;
-import earthquake.site.repositories.LogRepository;
-import earthquake.site.repositories.UrlsRepository;
-import earthquake.site.services.CrawlerService;
+import earthquake.site.entity.EarthquakeUrls;
+import earthquake.site.dao.LogRepository;
+import earthquake.site.dao.UrlsRepository;
+import earthquake.site.service.CrawlerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Pattern;

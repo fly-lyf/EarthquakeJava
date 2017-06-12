@@ -1,7 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 *.iml
-src/resources/crawler/log.txt
-src/resources/crawler/scrapy_log.txt
-src/resources/crawler/html_file/
+src/resources/crawler/
 

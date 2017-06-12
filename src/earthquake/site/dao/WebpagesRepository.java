@@ -1,7 +1,7 @@
-package earthquake.site.repositories;
+package earthquake.site.dao;
 
 import earthquake.site.forms.SearchForm;
-import earthquake.site.entities.EarthquakeWebpages;
+import earthquake.site.entity.EarthquakeWebpages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;

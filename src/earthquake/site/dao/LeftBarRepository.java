@@ -1,6 +1,6 @@
-package earthquake.site.repositories;
+package earthquake.site.dao;
 
-import earthquake.site.entities.EarthquakeLeftbar;
+import earthquake.site.entity.EarthquakeLeftbar;
 import org.springframework.stereotype.Repository;
 
 /**

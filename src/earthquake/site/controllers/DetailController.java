@@ -1,7 +1,7 @@
 package earthquake.site.controllers;
 
-import earthquake.site.entities.EarthquakeWebpages;
-import earthquake.site.repositories.WebpagesRepository;
+import earthquake.site.entity.EarthquakeWebpages;
+import earthquake.site.dao.WebpagesRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

@@ -1,6 +1,6 @@
-package earthquake.site.repositories;
+package earthquake.site.dao;
 
-import earthquake.site.entities.EarthquakeUrls;
+import earthquake.site.entity.EarthquakeUrls;
 import org.springframework.stereotype.Repository;
 
 /**

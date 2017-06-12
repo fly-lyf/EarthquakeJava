@@ -1,15 +1,17 @@
-package earthquake.site.repositories;
+package earthquake.site.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Iterator;
-import java.util.Map;
 
+/**
+ * 继承通用仓库接口，并实现基于HQL的通用查询操作
+ * @param <ID>
+ * @param <E>
+ */
 public abstract class
         GenericJpaBaseRepository<ID extends Serializable, E>
         implements GenericRepository<ID, E> {

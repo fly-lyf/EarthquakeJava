@@ -1,4 +1,4 @@
-package earthquake.site.entities;
+package earthquake.site.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;

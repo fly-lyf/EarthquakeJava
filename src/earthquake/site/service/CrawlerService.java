@@ -1,13 +1,11 @@
-package earthquake.site.services;
+package earthquake.site.service;
 
 import earthquake.site.forms.CrawlerForm;
 import earthquake.site.forms.Status;
-import earthquake.site.repositories.UrlsRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.io.*;
 
 /**

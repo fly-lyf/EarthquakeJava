@@ -1,16 +1,15 @@
 package earthquake.site.controllers;
 
 import earthquake.site.forms.SearchForm;
-import earthquake.site.entities.EarthquakeLeftbar;
-import earthquake.site.repositories.LeftBarRepository;
-import earthquake.site.repositories.WebpagesRepository;
+import earthquake.site.entity.EarthquakeLeftbar;
+import earthquake.site.dao.LeftBarRepository;
+import earthquake.site.dao.WebpagesRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Created by earthquake on 2016/10/8.
