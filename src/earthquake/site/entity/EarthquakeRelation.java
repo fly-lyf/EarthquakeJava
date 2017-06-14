@@ -3,13 +3,13 @@ package earthquake.site.entity;
 import javax.persistence.*;
 
 /**
- * Created by fly on 2017/6/12.
+ * Created by fly on 2017/6/14.
  */
 @Entity
 @Table(name = "earthquake_relation", schema = "", catalog = "earthquake")
 public class EarthquakeRelation {
     private int id;
-    private Integer earthId;
+    private Integer eventId;
     private Integer earthHistory;
     private Integer earthNear;
 
@@ -24,13 +24,13 @@ public class EarthquakeRelation {
     }
 
     @Basic
-    @Column(name = "earth_id", nullable = true, insertable = true, updatable = true)
-    public Integer getEarthId() {
-        return earthId;
+    @Column(name = "event_id", nullable = true, insertable = true, updatable = true)
+    public Integer getEventId() {
+        return eventId;
     }
 
-    public void setEarthId(Integer earthId) {
-        this.earthId = earthId;
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
     }
 
     @Basic
@@ -61,7 +61,7 @@ public class EarthquakeRelation {
         EarthquakeRelation that = (EarthquakeRelation) o;
 
         if (id != that.id) return false;
-        if (earthId != null ? !earthId.equals(that.earthId) : that.earthId != null) return false;
+        if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;
         if (earthHistory != null ? !earthHistory.equals(that.earthHistory) : that.earthHistory != null) return false;
         if (earthNear != null ? !earthNear.equals(that.earthNear) : that.earthNear != null) return false;
 
@@ -71,7 +71,7 @@ public class EarthquakeRelation {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (earthId != null ? earthId.hashCode() : 0);
+        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
         result = 31 * result + (earthHistory != null ? earthHistory.hashCode() : 0);
         result = 31 * result + (earthNear != null ? earthNear.hashCode() : 0);
         return result;

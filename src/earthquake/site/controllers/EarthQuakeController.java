@@ -46,7 +46,7 @@ public class EarthQuakeController {
     public String getAllEarthQuakeInfo(@RequestParam("pageNumber") int pageNumber) {
 
         List<EarthquakeInfo> earthQuakeList = earthquakeInfoService.getAllEarthQuakeInfo(pageNumber);
-        //将List对象转换为JSON对象
+        //灏哃ist瀵硅薄杞崲涓篔SON瀵硅薄
         String earthquakeInfo = JSON.toJSONString(earthQuakeList);
 
         return earthquakeInfo;

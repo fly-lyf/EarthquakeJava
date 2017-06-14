@@ -22,7 +22,7 @@ public class DetailController {
     @RequestMapping(value = "/contentdetail", params="id")
     public EarthquakeWebpages information(String id) {
         int idInt = Integer.parseInt(id);
-        EarthquakeWebpages webpage = webpagesRepository.get(idInt);
+        EarthquakeWebpages webpage = webpagesRepository.getById(idInt);
         return webpage;
     }
 }

@@ -16,7 +16,7 @@ public interface GenericRepository<ID extends Serializable, E>
     @NotNull
     Iterable<E> getAll();
 
-    E get(@NotNull ID id);
+    E getById(@NotNull ID id);
 
     void add(@NotNull E entity);
 

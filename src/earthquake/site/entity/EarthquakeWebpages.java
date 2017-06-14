@@ -1,32 +1,27 @@
 package earthquake.site.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by fly on 2016/10/15.
+ * Created by fly on 2017/6/14.
  */
 @Entity
-@Table(name = "earthquake_webpages", schema = "earthquake", catalog = "")
+@Table(name = "earthquake_webpages", schema = "", catalog = "earthquake")
 public class EarthquakeWebpages {
     private int id;
-    private String eventid;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private String publishedtime;
-    private String typename;
+    private String eventId;
+    private String publishedTime;
+    private String typeName;
     private String source;
     private String title;
     private String summary;
     private String content;
     private String url;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Timestamp crawledtime;
+    private Timestamp crawledTime;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
     }
@@ -36,38 +31,37 @@ public class EarthquakeWebpages {
     }
 
     @Basic
-    @Column(name = "eventid", nullable = true, length = 14)
-    public String getEventid() {
-        return eventid;
+    @Column(name = "event_id", nullable = true, insertable = true, updatable = true, length = 14)
+    public String getEventId() {
+        return eventId;
     }
 
-    public void setEventid(String eventid) {
-        this.eventid = eventid;
-    }
-
-    @Basic
-    @Column(name = "publishedtime", nullable = true, length = 30)
-    @JsonFormat(pattern="yyyy-MM-dd")
-    public String getPublishedtime() {
-        return publishedtime;
-    }
-
-    public void setPublishedtime(String publishedtime) {
-        this.publishedtime = publishedtime;
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 
     @Basic
-    @Column(name = "typename", nullable = true, length = 255)
-    public String getTypename() {
-        return typename;
+    @Column(name = "published_time", nullable = true, insertable = true, updatable = true, length = 30)
+    public String getPublishedTime() {
+        return publishedTime;
     }
 
-    public void setTypename(String typename) {
-        this.typename = typename;
+    public void setPublishedTime(String publishedTime) {
+        this.publishedTime = publishedTime;
     }
 
     @Basic
-    @Column(name = "source", nullable = true, length = 255)
+    @Column(name = "type_name", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    @Basic
+    @Column(name = "source", nullable = true, insertable = true, updatable = true, length = 255)
     public String getSource() {
         return source;
     }
@@ -77,7 +71,7 @@ public class EarthquakeWebpages {
     }
 
     @Basic
-    @Column(name = "title", nullable = true, length = 255)
+    @Column(name = "title", nullable = true, insertable = true, updatable = true, length = 255)
     public String getTitle() {
         return title;
     }
@@ -87,7 +81,7 @@ public class EarthquakeWebpages {
     }
 
     @Basic
-    @Column(name = "summary", nullable = true, length = -1)
+    @Column(name = "summary", nullable = true, insertable = true, updatable = true, length = 2147483647)
     public String getSummary() {
         return summary;
     }
@@ -97,7 +91,7 @@ public class EarthquakeWebpages {
     }
 
     @Basic
-    @Column(name = "content", nullable = true, length = -1)
+    @Column(name = "content", nullable = true, insertable = true, updatable = true, length = 2147483647)
     public String getContent() {
         return content;
     }
@@ -107,7 +101,7 @@ public class EarthquakeWebpages {
     }
 
     @Basic
-    @Column(name = "url", nullable = true, length = 255)
+    @Column(name = "url", nullable = true, insertable = true, updatable = true, length = 255)
     public String getUrl() {
         return url;
     }
@@ -117,14 +111,13 @@ public class EarthquakeWebpages {
     }
 
     @Basic
-    @Column(name = "crawledtime", nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd")
-    public Timestamp getCrawledtime() {
-        return crawledtime;
+    @Column(name = "crawled_time", nullable = false, insertable = true, updatable = true)
+    public Timestamp getCrawledTime() {
+        return crawledTime;
     }
 
-    public void setCrawledtime(Timestamp crawledtime) {
-        this.crawledtime = crawledtime;
+    public void setCrawledTime(Timestamp crawledTime) {
+        this.crawledTime = crawledTime;
     }
 
     @Override
@@ -135,16 +128,16 @@ public class EarthquakeWebpages {
         EarthquakeWebpages that = (EarthquakeWebpages) o;
 
         if (id != that.id) return false;
-        if (eventid != null ? !eventid.equals(that.eventid) : that.eventid != null) return false;
-        if (publishedtime != null ? !publishedtime.equals(that.publishedtime) : that.publishedtime != null)
+        if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;
+        if (publishedTime != null ? !publishedTime.equals(that.publishedTime) : that.publishedTime != null)
             return false;
-        if (typename != null ? !typename.equals(that.typename) : that.typename != null) return false;
+        if (typeName != null ? !typeName.equals(that.typeName) : that.typeName != null) return false;
         if (source != null ? !source.equals(that.source) : that.source != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (summary != null ? !summary.equals(that.summary) : that.summary != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (crawledtime != null ? !crawledtime.equals(that.crawledtime) : that.crawledtime != null) return false;
+        if (crawledTime != null ? !crawledTime.equals(that.crawledTime) : that.crawledTime != null) return false;
 
         return true;
     }
@@ -152,15 +145,15 @@ public class EarthquakeWebpages {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (eventid != null ? eventid.hashCode() : 0);
-        result = 31 * result + (publishedtime != null ? publishedtime.hashCode() : 0);
-        result = 31 * result + (typename != null ? typename.hashCode() : 0);
+        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
+        result = 31 * result + (publishedTime != null ? publishedTime.hashCode() : 0);
+        result = 31 * result + (typeName != null ? typeName.hashCode() : 0);
         result = 31 * result + (source != null ? source.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (summary != null ? summary.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
-        result = 31 * result + (crawledtime != null ? crawledtime.hashCode() : 0);
+        result = 31 * result + (crawledTime != null ? crawledTime.hashCode() : 0);
         return result;
     }
 }

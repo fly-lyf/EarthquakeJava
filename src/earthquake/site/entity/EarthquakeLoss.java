@@ -3,14 +3,13 @@ package earthquake.site.entity;
 import javax.persistence.*;
 
 /**
- * Created by fly on 2017/6/12.
+ * Created by fly on 2017/6/14.
  */
 @Entity
 @Table(name = "earthquake_loss", schema = "", catalog = "earthquake")
-@IdClass(EarthquakeLossPK.class)
 public class EarthquakeLoss {
     private int id;
-    private int earthId;
+    private int eventId;
     private Integer deathPeople;
     private Double economyLoss;
     private Double destroy;
@@ -26,14 +25,14 @@ public class EarthquakeLoss {
         this.id = id;
     }
 
-    @Id
-    @Column(name = "earth_id", nullable = false, insertable = true, updatable = true)
-    public int getEarthId() {
-        return earthId;
+    @Basic
+    @Column(name = "event_id", nullable = false, insertable = true, updatable = true)
+    public int getEventId() {
+        return eventId;
     }
 
-    public void setEarthId(int earthId) {
-        this.earthId = earthId;
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 
     @Basic
@@ -84,7 +83,7 @@ public class EarthquakeLoss {
         EarthquakeLoss that = (EarthquakeLoss) o;
 
         if (id != that.id) return false;
-        if (earthId != that.earthId) return false;
+        if (eventId != that.eventId) return false;
         if (deathPeople != null ? !deathPeople.equals(that.deathPeople) : that.deathPeople != null) return false;
         if (economyLoss != null ? !economyLoss.equals(that.economyLoss) : that.economyLoss != null) return false;
         if (destroy != null ? !destroy.equals(that.destroy) : that.destroy != null) return false;
@@ -96,7 +95,7 @@ public class EarthquakeLoss {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + earthId;
+        result = 31 * result + eventId;
         result = 31 * result + (deathPeople != null ? deathPeople.hashCode() : 0);
         result = 31 * result + (economyLoss != null ? economyLoss.hashCode() : 0);
         result = 31 * result + (destroy != null ? destroy.hashCode() : 0);

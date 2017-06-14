@@ -1,6 +1,6 @@
 package earthquake.site.controllers;
 
-import earthquake.site.forms.SearchForm;
+import earthquake.site.forms.WebpageSearchForm;
 import earthquake.site.entity.EarthquakeLeftbar;
 import earthquake.site.dao.LeftBarRepository;
 import earthquake.site.dao.WebpagesRepository;
@@ -36,9 +36,9 @@ public class ListController {
 
     @ResponseBody
     @RequestMapping(value = "/search")
-    public HashMap<String, Object> searchList(SearchForm form) {
+    public HashMap<String, Object> searchList(WebpageSearchForm form) {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("list", webpagesRepository.getByCondition(form));
+        result.put("list", webpagesRepository.getWebpagesByCondition(form));
         result.put("pageTotal", webpagesRepository.getCount(form));
         return result;
     }

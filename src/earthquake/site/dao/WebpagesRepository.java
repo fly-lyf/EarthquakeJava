@@ -1,13 +1,14 @@
 package earthquake.site.dao;
 
-import earthquake.site.forms.SearchForm;
+import earthquake.site.forms.WebpageSearchForm;
 import earthquake.site.entity.EarthquakeWebpages;
+import earthquake.site.service.CommonService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
+import javax.inject.Inject;
 import javax.persistence.TypedQuery;
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.util.*;
 
@@ -18,44 +19,46 @@ import java.util.*;
 @Repository
 public class WebpagesRepository extends GenericJpaBaseRepository<Integer, EarthquakeWebpages> {
 
+    @Inject
+    private CommonService<WebpageSearchForm> commonService;
     private static final Logger log = LogManager.getLogger();
 
-    public List getByCondition(SearchForm form) {
+    public List getWebpagesByCondition(WebpageSearchForm form) {
         if (form.pageCount == null || form.pageCount.equals("")) {
             form.pageCount = "1";
         }
         if (form.pageNum == null || form.pageNum.equals("")) {
             form.pageNum = "10";
         }
-        TypedQuery typedQuery = getQuery(form);
+        TypedQuery typedQuery = getWebpagesQuery(form);
         return typedQuery.getResultList();
     }
 
-    public long getCount(SearchForm form) {
+    public long getCount(WebpageSearchForm form) {
         form.pageCount = "";
         form.pageNum = "";
-        TypedQuery typedQuery = getQuery(form);
+        TypedQuery typedQuery = getWebpagesQuery(form);
         return typedQuery.getResultList().size();
     }
 
-    public TypedQuery getQuery(SearchForm form) {
+    public TypedQuery getWebpagesQuery(WebpageSearchForm form) {
         String query = "select entity from EarthquakeWebpages entity";
         DateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
-        HashMap<String, Object> attrsMap = new HashMap<>();
-        Field[] fields = form.getClass().getDeclaredFields();
-        for (int i = 0; i < fields.length; i++) {
-            Field field = fields[i];
-            String attrname = field.getName();
-            try {
-                Object value = field.get(form);
-                if (value != null) {
-                    attrsMap.put(attrname, value);
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
+        HashMap<String, Object> attrsMap = commonService.formMap(form);
+//        Field[] fields = form.getClass().getDeclaredFields();
+//        for (int i = 0; i < fields.length; i++) {
+//            Field field = fields[i];
+//            String attrname = field.getName();
+//            try {
+//                Object value = field.get(form);
+//                if (value != null) {
+//                    attrsMap.put(attrname, value);
+//                }
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         ArrayList<String> subQuery = new ArrayList<>();
 
@@ -63,16 +66,16 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
             String key = entry.getKey();
             switch (key) {
                 case "crawledStartTime":
-                    subQuery.add("entity.crawledtime > " + format.format(entry.getValue()));
+                    subQuery.add("entity.crawledTime > " + format.format(entry.getValue()));
                     break;
                 case "crawledEndTime":
-                    subQuery.add("entity.crawledtime < " + format.format(entry.getValue()));
+                    subQuery.add("entity.crawledTime < " + format.format(entry.getValue()));
                     break;
                 case "publishedStartTime":
-                    subQuery.add("entity.publishedtime > " + format.format(entry.getValue()));
+                    subQuery.add("entity.publishedTime > " + format.format(entry.getValue()));
                     break;
                 case "publishedEndTime":
-                    subQuery.add("entity.publishedtime < " + format.format(entry.getValue()));
+                    subQuery.add("entity.publishedTime < " + format.format(entry.getValue()));
                     break;
 
                 case "title":
@@ -81,8 +84,8 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
                     subQuery.add("entity." + key + " like '%" + entry.getValue() + "%'");
 
                     break;
-                case "eventid":
-                case "typename":
+                case "eventId":
+                case "typeName":
                     subQuery.add("entity." + key + "='" + entry.getValue() + "'");
                     break;
             }
@@ -98,7 +101,7 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
         }
 
         attrsMap.putIfAbsent("order", "2");
-        attrsMap.putIfAbsent("orderName", "crawledtime");
+        attrsMap.putIfAbsent("orderName", "crawledTime");
         String sqlOrder = "";
         if (attrsMap.get("order").equals("2")) {
             sqlOrder = "desc";

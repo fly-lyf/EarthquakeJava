@@ -3,7 +3,7 @@ package earthquake.site.entity;
 import javax.persistence.*;
 
 /**
- * Created by fly on 2017/6/12.
+ * Created by fly on 2017/6/14.
  */
 @Entity
 @Table(name = "earthquake_nearcity_info", schema = "", catalog = "earthquake")

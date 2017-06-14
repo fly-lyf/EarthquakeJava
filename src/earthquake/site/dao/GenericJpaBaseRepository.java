@@ -54,7 +54,7 @@ public abstract class
     }
 
     @Override
-    public E get(ID id) {
+    public E getById(ID id) {
         return entityManager.find(entityClass, id);
     }
 
