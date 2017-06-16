@@ -1,11 +1,21 @@
 package earthquake.site.dao;
 
+import earthquake.site.entity.EarthquakeAdministrativeDivision;
+import earthquake.site.entity.EarthquakeInfo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 继承通用仓库接口，并实现基于HQL的通用查询操作
@@ -13,13 +23,15 @@ import java.lang.reflect.Type;
  * @param <E>
  */
 public abstract class
-        GenericJpaBaseRepository<ID extends Serializable, E>
+        GenericJpaBaseRepository<ID extends Serializable, E, F>
         implements GenericRepository<ID, E> {
     protected final Class<ID> idClass;
     protected final Class<E> entityClass;
 
     @PersistenceContext
     protected EntityManager entityManager;
+
+    private static final Logger log = LogManager.getLogger();
 
     @SuppressWarnings("unchecked")
     public GenericJpaBaseRepository() {
@@ -83,5 +95,101 @@ public abstract class
         )).executeUpdate();
     }
 
+    //构造条件映射
+    public HashMap<String, Object> getConditionMap(F form) {
 
+        HashMap<String, Object> attrsMap = new HashMap<>();
+        Field[] fields = form.getClass().getDeclaredFields();
+        boolean flag = false;
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            String attrName = field.getName();
+            if(attrName.equals("pageCount")){
+                flag = true;
+            }
+            try {
+                Object value = field.get(form);
+                if (value != null) {
+                    attrsMap.put(attrName, value);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        if(!flag){
+            attrsMap.put("pageCount", "1");
+            attrsMap.put("pageNum", "10");
+        }
+        return attrsMap;
+    }
+
+    //构造typedQuery
+    public TypedQuery<E> getTypedQuery(ArrayList<String> subQuery, HashMap<String, Object> attrsMap) {
+
+        String query = "select entity from " + entityClass.getSimpleName() + " entity";
+
+        for (int i = 0; i < subQuery.size(); i++) {
+            String sub = subQuery.get(i);
+            if (i == 0) {
+                query = query + " where " + sub;
+            } else {
+                query = query + " and " + sub;
+            }
+        }
+
+        if(attrsMap.get("orderName") != null && !attrsMap.get("orderName").equals("")){
+            String sqlOrder = "";
+            if (attrsMap.get("order").equals("2")) {
+                sqlOrder = "desc";
+            }
+            query += " order by entity." + attrsMap.get("orderName") + " " + sqlOrder;
+        }
+
+        log.info(query);
+        System.out.println(query);
+        TypedQuery<E> typedQuery = entityManager.createQuery(query, entityClass);
+
+        if (!attrsMap.get("pageCount").equals("")) {
+            Integer pageCount = Integer.parseInt((String) attrsMap.get("pageCount"));
+            Integer pageNum = Integer.parseInt((String) attrsMap.get("pageNum"));
+            typedQuery.setFirstResult((pageCount - 1) * pageNum).setMaxResults(pageNum);
+        }
+
+        return typedQuery;
+    }
+
+    public TypedQuery<E> getTypedQuery(ArrayList<String> subQuery, HashMap<String, Object> attrsMap, String orderName, String order) {
+
+        String query = "select entity from " + entityClass.getSimpleName() + " entity";
+
+        for (int i = 0; i < subQuery.size(); i++) {
+            String sub = subQuery.get(i);
+            if (i == 0) {
+                query = query + " where " + sub;
+            } else {
+                query = query + " and " + sub;
+            }
+        }
+
+
+        if(!orderName.equals("") && !order.equals("")){
+            String sqlOrder = "";
+            if (order.equals("2")) {
+                sqlOrder = "desc";
+            }
+            query += " order by entity." + orderName + " " + sqlOrder;
+        }
+
+        log.info(query);
+        System.out.println(query);
+        TypedQuery<E> typedQuery = entityManager.createQuery(query, entityClass);
+
+        if (!attrsMap.get("pageCount").equals("")) {
+            Integer pageCount = Integer.parseInt((String) attrsMap.get("pageCount"));
+            Integer pageNum = Integer.parseInt((String) attrsMap.get("pageNum"));
+            typedQuery.setFirstResult((pageCount - 1) * pageNum).setMaxResults(pageNum);
+        }
+
+        return typedQuery;
+    }
 }

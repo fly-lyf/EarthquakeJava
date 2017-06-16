@@ -1,29 +1,28 @@
 package earthquake.site.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Time;
 
 /**
- * Created by fly on 2017/6/14.
+ * Created by fly on 2017/6/15.
  */
 @Entity
 @Table(name = "earthquake_info", schema = "", catalog = "earthquake")
 public class EarthquakeInfo {
     private int id;
-    private Integer eventId;
-    private String earthquakeTitle;
-    private Timestamp earthquakeTime;
+    private String eventId;
     private Double longitude;
     private Double latitude;
-    private Double deepth;
     private Double magnitude;
-    private String location;
-    private String terrain;
-    private String climate;
-    private String geoEnvironment;
-    private String population;
-    private String administrativeArea;
-    private String naturalSource;
+    private String intensity;
+    private Double depth;
+    private String year;
+    private Time earthquakeTime;
+    private String province;
+    private String city;
+    private String county;
+    private String cause;
+    private String suggestion;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
@@ -37,36 +36,16 @@ public class EarthquakeInfo {
 
     @Basic
     @Column(name = "event_id", nullable = true, insertable = true, updatable = true)
-    public Integer getEventId() {
+    public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(Integer eventId) {
+    public void setEventId(String eventId) {
         this.eventId = eventId;
     }
 
     @Basic
-    @Column(name = "earthquake_title", nullable = false, insertable = true, updatable = true, length = 255)
-    public String getEarthquakeTitle() {
-        return earthquakeTitle;
-    }
-
-    public void setEarthquakeTitle(String earthquakeTitle) {
-        this.earthquakeTitle = earthquakeTitle;
-    }
-
-    @Basic
-    @Column(name = "earthquake_time", nullable = true, insertable = true, updatable = true)
-    public Timestamp getEarthquakeTime() {
-        return earthquakeTime;
-    }
-
-    public void setEarthquakeTime(Timestamp earthquakeTime) {
-        this.earthquakeTime = earthquakeTime;
-    }
-
-    @Basic
-    @Column(name = "longitude", nullable = true, insertable = true, updatable = true, precision = 3)
+    @Column(name = "longitude", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getLongitude() {
         return longitude;
     }
@@ -76,23 +55,13 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "latitude", nullable = true, insertable = true, updatable = true, precision = 3)
+    @Column(name = "latitude", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getLatitude() {
         return latitude;
     }
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
-    }
-
-    @Basic
-    @Column(name = "deepth", nullable = true, insertable = true, updatable = true, precision = 0)
-    public Double getDeepth() {
-        return deepth;
-    }
-
-    public void setDeepth(Double deepth) {
-        this.deepth = deepth;
     }
 
     @Basic
@@ -106,73 +75,93 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "location", nullable = true, insertable = true, updatable = true, length = 2147483647)
-    public String getLocation() {
-        return location;
+    @Column(name = "intensity", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getIntensity() {
+        return intensity;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    @Basic
-    @Column(name = "terrain", nullable = true, insertable = true, updatable = true, length = 2147483647)
-    public String getTerrain() {
-        return terrain;
-    }
-
-    public void setTerrain(String terrain) {
-        this.terrain = terrain;
+    public void setIntensity(String intensity) {
+        this.intensity = intensity;
     }
 
     @Basic
-    @Column(name = "climate", nullable = true, insertable = true, updatable = true, length = 2147483647)
-    public String getClimate() {
-        return climate;
+    @Column(name = "depth", nullable = true, insertable = true, updatable = true, precision = 0)
+    public Double getDepth() {
+        return depth;
     }
 
-    public void setClimate(String climate) {
-        this.climate = climate;
-    }
-
-    @Basic
-    @Column(name = "geoEnvironment", nullable = true, insertable = true, updatable = true, length = 2147483647)
-    public String getGeoEnvironment() {
-        return geoEnvironment;
-    }
-
-    public void setGeoEnvironment(String geoEnvironment) {
-        this.geoEnvironment = geoEnvironment;
+    public void setDepth(Double depth) {
+        this.depth = depth;
     }
 
     @Basic
-    @Column(name = "population", nullable = true, insertable = true, updatable = true, length = 2147483647)
-    public String getPopulation() {
-        return population;
+    @Column(name = "year", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getYear() {
+        return year;
     }
 
-    public void setPopulation(String population) {
-        this.population = population;
-    }
-
-    @Basic
-    @Column(name = "administrativeArea", nullable = true, insertable = true, updatable = true, length = 2147483647)
-    public String getAdministrativeArea() {
-        return administrativeArea;
-    }
-
-    public void setAdministrativeArea(String administrativeArea) {
-        this.administrativeArea = administrativeArea;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     @Basic
-    @Column(name = "naturalSource", nullable = true, insertable = true, updatable = true, length = 2147483647)
-    public String getNaturalSource() {
-        return naturalSource;
+    @Column(name = "earthquake_time", nullable = true, insertable = true, updatable = true)
+    public Time getEarthquakeTime() {
+        return earthquakeTime;
     }
 
-    public void setNaturalSource(String naturalSource) {
-        this.naturalSource = naturalSource;
+    public void setEarthquakeTime(Time earthquakeTime) {
+        this.earthquakeTime = earthquakeTime;
+    }
+
+    @Basic
+    @Column(name = "province", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    @Basic
+    @Column(name = "city", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Basic
+    @Column(name = "county", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    @Basic
+    @Column(name = "cause", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    public String getCause() {
+        return cause;
+    }
+
+    public void setCause(String cause) {
+        this.cause = cause;
+    }
+
+    @Basic
+    @Column(name = "suggestion", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    public String getSuggestion() {
+        return suggestion;
+    }
+
+    public void setSuggestion(String suggestion) {
+        this.suggestion = suggestion;
     }
 
     @Override
@@ -184,24 +173,19 @@ public class EarthquakeInfo {
 
         if (id != that.id) return false;
         if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;
-        if (earthquakeTitle != null ? !earthquakeTitle.equals(that.earthquakeTitle) : that.earthquakeTitle != null)
-            return false;
-        if (earthquakeTime != null ? !earthquakeTime.equals(that.earthquakeTime) : that.earthquakeTime != null)
-            return false;
         if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null) return false;
         if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null) return false;
-        if (deepth != null ? !deepth.equals(that.deepth) : that.deepth != null) return false;
         if (magnitude != null ? !magnitude.equals(that.magnitude) : that.magnitude != null) return false;
-        if (location != null ? !location.equals(that.location) : that.location != null) return false;
-        if (terrain != null ? !terrain.equals(that.terrain) : that.terrain != null) return false;
-        if (climate != null ? !climate.equals(that.climate) : that.climate != null) return false;
-        if (geoEnvironment != null ? !geoEnvironment.equals(that.geoEnvironment) : that.geoEnvironment != null)
+        if (intensity != null ? !intensity.equals(that.intensity) : that.intensity != null) return false;
+        if (depth != null ? !depth.equals(that.depth) : that.depth != null) return false;
+        if (year != null ? !year.equals(that.year) : that.year != null) return false;
+        if (earthquakeTime != null ? !earthquakeTime.equals(that.earthquakeTime) : that.earthquakeTime != null)
             return false;
-        if (population != null ? !population.equals(that.population) : that.population != null) return false;
-        if (administrativeArea != null ? !administrativeArea.equals(that.administrativeArea) : that.administrativeArea != null)
-            return false;
-        if (naturalSource != null ? !naturalSource.equals(that.naturalSource) : that.naturalSource != null)
-            return false;
+        if (province != null ? !province.equals(that.province) : that.province != null) return false;
+        if (city != null ? !city.equals(that.city) : that.city != null) return false;
+        if (county != null ? !county.equals(that.county) : that.county != null) return false;
+        if (cause != null ? !cause.equals(that.cause) : that.cause != null) return false;
+        if (suggestion != null ? !suggestion.equals(that.suggestion) : that.suggestion != null) return false;
 
         return true;
     }
@@ -210,19 +194,18 @@ public class EarthquakeInfo {
     public int hashCode() {
         int result = id;
         result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
-        result = 31 * result + (earthquakeTitle != null ? earthquakeTitle.hashCode() : 0);
-        result = 31 * result + (earthquakeTime != null ? earthquakeTime.hashCode() : 0);
         result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
         result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
-        result = 31 * result + (deepth != null ? deepth.hashCode() : 0);
         result = 31 * result + (magnitude != null ? magnitude.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
-        result = 31 * result + (terrain != null ? terrain.hashCode() : 0);
-        result = 31 * result + (climate != null ? climate.hashCode() : 0);
-        result = 31 * result + (geoEnvironment != null ? geoEnvironment.hashCode() : 0);
-        result = 31 * result + (population != null ? population.hashCode() : 0);
-        result = 31 * result + (administrativeArea != null ? administrativeArea.hashCode() : 0);
-        result = 31 * result + (naturalSource != null ? naturalSource.hashCode() : 0);
+        result = 31 * result + (intensity != null ? intensity.hashCode() : 0);
+        result = 31 * result + (depth != null ? depth.hashCode() : 0);
+        result = 31 * result + (year != null ? year.hashCode() : 0);
+        result = 31 * result + (earthquakeTime != null ? earthquakeTime.hashCode() : 0);
+        result = 31 * result + (province != null ? province.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (county != null ? county.hashCode() : 0);
+        result = 31 * result + (cause != null ? cause.hashCode() : 0);
+        result = 31 * result + (suggestion != null ? suggestion.hashCode() : 0);
         return result;
     }
 }

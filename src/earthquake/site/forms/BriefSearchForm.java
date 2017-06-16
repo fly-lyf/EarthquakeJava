@@ -9,19 +9,24 @@ import java.util.Date;
  */
 public class BriefSearchForm {
 
-    public int eventId;
+    public String eventId;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date earthquakeTimeStart;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date earthquakeTimeEnd;
-    public String location;
-    public double magnitude;
 
-    public int getEventId() {
+    public String province;
+    public String city;
+    public String county;
+
+    public Double magnitude;
+
+    public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(int eventId) {
+    public void setEventId(String eventId) {
         this.eventId = eventId;
     }
 
@@ -41,19 +46,35 @@ public class BriefSearchForm {
         this.earthquakeTimeEnd = earthquakeTimeEnd;
     }
 
-    public String getLocation() {
-        return location;
+    public String getProvince() {
+        return province;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
-    public double getMagnitude() {
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public Double getMagnitude() {
         return magnitude;
     }
 
-    public void setMagnitude(double magnitude) {
+    public void setMagnitude(Double magnitude) {
         this.magnitude = magnitude;
     }
 }

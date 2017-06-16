@@ -2,12 +2,10 @@ package earthquake.site.dao;
 
 import earthquake.site.forms.WebpageSearchForm;
 import earthquake.site.entity.EarthquakeWebpages;
-import earthquake.site.service.CommonService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 import java.text.DateFormat;
 import java.util.*;
@@ -17,11 +15,7 @@ import java.util.*;
  */
 
 @Repository
-public class WebpagesRepository extends GenericJpaBaseRepository<Integer, EarthquakeWebpages> {
-
-    @Inject
-    private CommonService<WebpageSearchForm> commonService;
-    private static final Logger log = LogManager.getLogger();
+public class WebpagesRepository extends GenericJpaBaseRepository<Integer, EarthquakeWebpages, WebpageSearchForm> {
 
     public List getWebpagesByCondition(WebpageSearchForm form) {
         if (form.pageCount == null || form.pageCount.equals("")) {
@@ -30,38 +24,26 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
         if (form.pageNum == null || form.pageNum.equals("")) {
             form.pageNum = "10";
         }
-        TypedQuery typedQuery = getWebpagesQuery(form);
+
+        HashMap<String, Object> attrsMap = getConditionMap(form);
+        ArrayList<String> subQuery = getSubQuery(attrsMap);
+        TypedQuery<EarthquakeWebpages> typedQuery = getTypedQuery(subQuery, attrsMap);
         return typedQuery.getResultList();
     }
 
     public long getCount(WebpageSearchForm form) {
         form.pageCount = "";
         form.pageNum = "";
-        TypedQuery typedQuery = getWebpagesQuery(form);
+        HashMap<String, Object> attrsMap = getConditionMap(form);
+        ArrayList<String> subQuery = getSubQuery(attrsMap);
+        TypedQuery typedQuery = getTypedQuery(subQuery, attrsMap);
         return typedQuery.getResultList().size();
     }
 
-    public TypedQuery getWebpagesQuery(WebpageSearchForm form) {
-        String query = "select entity from EarthquakeWebpages entity";
+    //构造HQL语句文本
+    public ArrayList<String> getSubQuery(HashMap<String, Object> attrsMap){
         DateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
-
-        HashMap<String, Object> attrsMap = commonService.formMap(form);
-//        Field[] fields = form.getClass().getDeclaredFields();
-//        for (int i = 0; i < fields.length; i++) {
-//            Field field = fields[i];
-//            String attrname = field.getName();
-//            try {
-//                Object value = field.get(form);
-//                if (value != null) {
-//                    attrsMap.put(attrname, value);
-//                }
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
         ArrayList<String> subQuery = new ArrayList<>();
-
         for (Map.Entry<String, Object> entry : attrsMap.entrySet()) {
             String key = entry.getKey();
             switch (key) {
@@ -90,34 +72,7 @@ public class WebpagesRepository extends GenericJpaBaseRepository<Integer, Earthq
                     break;
             }
         }
-
-        for (int i = 0; i < subQuery.size(); i++) {
-            String sub = subQuery.get(i);
-            if (i == 0) {
-                query = query + " where " + sub;
-            } else {
-                query = query + " and " + sub;
-            }
-        }
-
-        attrsMap.putIfAbsent("order", "2");
-        attrsMap.putIfAbsent("orderName", "crawledTime");
-        String sqlOrder = "";
-        if (attrsMap.get("order").equals("2")) {
-            sqlOrder = "desc";
-        }
-        query += " order by entity." + attrsMap.get("orderName") + " " + sqlOrder;
-
-        log.info(query);
-        System.out.println(query);
-        TypedQuery<EarthquakeWebpages> typedQuery = entityManager.createQuery(query, entityClass);
-
-        if (!attrsMap.get("pageCount").equals("")) {
-            Integer pageCount = Integer.parseInt((String) attrsMap.get("pageCount"));
-            Integer pageNum = Integer.parseInt((String) attrsMap.get("pageNum"));
-            typedQuery.setFirstResult((pageCount - 1) * pageNum).setMaxResults(pageNum);
-        }
-
-        return typedQuery;
+        return subQuery;
     }
+
 }

@@ -1,6 +1,7 @@
 package earthquake.site.dao;
 
 import earthquake.site.entity.EarthquakeUrls;
+import earthquake.site.forms.EmptyForm;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,6 +9,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class UrlsRepository extends GenericJpaBaseRepository<Integer, EarthquakeUrls> {
+public class UrlsRepository extends GenericJpaBaseRepository<Integer, EarthquakeUrls,EmptyForm> {
 
 }
