@@ -3,7 +3,7 @@ package earthquake.site.entity;
 import javax.persistence.*;
 
 /**
- * Created by fly on 2017/6/15.
+ * Created by fly on 2017/6/16.
  */
 @Entity
 @Table(name = "earthquake_administrative_division", schema = "", catalog = "earthquake")
@@ -135,22 +135,23 @@ public class EarthquakeAdministrativeDivision {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EarthquakeAdministrativeDivision that = (EarthquakeAdministrativeDivision) o;
+        EarthquakeAdministrativeDivision division = (EarthquakeAdministrativeDivision) o;
 
-        if (id != that.id) return false;
-        if (province != null ? !province.equals(that.province) : that.province != null) return false;
-        if (city != null ? !city.equals(that.city) : that.city != null) return false;
-        if (county != null ? !county.equals(that.county) : that.county != null) return false;
-        if (geoTerrain != null ? !geoTerrain.equals(that.geoTerrain) : that.geoTerrain != null) return false;
-        if (climate != null ? !climate.equals(that.climate) : that.climate != null) return false;
-        if (geoEnvironment != null ? !geoEnvironment.equals(that.geoEnvironment) : that.geoEnvironment != null)
+        if (id != division.id) return false;
+        if (province != null ? !province.equals(division.province) : division.province != null) return false;
+        if (city != null ? !city.equals(division.city) : division.city != null) return false;
+        if (county != null ? !county.equals(division.county) : division.county != null) return false;
+        if (geoTerrain != null ? !geoTerrain.equals(division.geoTerrain) : division.geoTerrain != null) return false;
+        if (climate != null ? !climate.equals(division.climate) : division.climate != null) return false;
+        if (geoEnvironment != null ? !geoEnvironment.equals(division.geoEnvironment) : division.geoEnvironment != null)
             return false;
-        if (population != null ? !population.equals(that.population) : that.population != null) return false;
-        if (administrativeArea != null ? !administrativeArea.equals(that.administrativeArea) : that.administrativeArea != null)
+        if (population != null ? !population.equals(division.population) : division.population != null) return false;
+        if (administrativeArea != null ? !administrativeArea.equals(division.administrativeArea) : division.administrativeArea != null)
             return false;
-        if (naturalSource != null ? !naturalSource.equals(that.naturalSource) : that.naturalSource != null)
+        if (naturalSource != null ? !naturalSource.equals(division.naturalSource) : division.naturalSource != null)
             return false;
-        if (geoStructure != null ? !geoStructure.equals(that.geoStructure) : that.geoStructure != null) return false;
+        if (geoStructure != null ? !geoStructure.equals(division.geoStructure) : division.geoStructure != null)
+            return false;
 
         return true;
     }

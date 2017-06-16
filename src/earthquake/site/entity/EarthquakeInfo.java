@@ -1,10 +1,10 @@
 package earthquake.site.entity;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Timestamp;
 
 /**
- * Created by fly on 2017/6/15.
+ * Created by fly on 2017/6/16.
  */
 @Entity
 @Table(name = "earthquake_info", schema = "", catalog = "earthquake")
@@ -16,8 +16,7 @@ public class EarthquakeInfo {
     private Double magnitude;
     private String intensity;
     private Double depth;
-    private String year;
-    private Time earthquakeTime;
+    private Timestamp earthquakeTime;
     private String province;
     private String city;
     private String county;
@@ -35,7 +34,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "event_id", nullable = true, insertable = true, updatable = true)
+    @Column(name = "event_id", nullable = true, insertable = true, updatable = true, length = 20)
     public String getEventId() {
         return eventId;
     }
@@ -95,22 +94,12 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "year", nullable = true, insertable = true, updatable = true, length = 255)
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    @Basic
     @Column(name = "earthquake_time", nullable = true, insertable = true, updatable = true)
-    public Time getEarthquakeTime() {
+    public Timestamp getEarthquakeTime() {
         return earthquakeTime;
     }
 
-    public void setEarthquakeTime(Time earthquakeTime) {
+    public void setEarthquakeTime(Timestamp earthquakeTime) {
         this.earthquakeTime = earthquakeTime;
     }
 
@@ -178,7 +167,6 @@ public class EarthquakeInfo {
         if (magnitude != null ? !magnitude.equals(that.magnitude) : that.magnitude != null) return false;
         if (intensity != null ? !intensity.equals(that.intensity) : that.intensity != null) return false;
         if (depth != null ? !depth.equals(that.depth) : that.depth != null) return false;
-        if (year != null ? !year.equals(that.year) : that.year != null) return false;
         if (earthquakeTime != null ? !earthquakeTime.equals(that.earthquakeTime) : that.earthquakeTime != null)
             return false;
         if (province != null ? !province.equals(that.province) : that.province != null) return false;
@@ -199,7 +187,6 @@ public class EarthquakeInfo {
         result = 31 * result + (magnitude != null ? magnitude.hashCode() : 0);
         result = 31 * result + (intensity != null ? intensity.hashCode() : 0);
         result = 31 * result + (depth != null ? depth.hashCode() : 0);
-        result = 31 * result + (year != null ? year.hashCode() : 0);
         result = 31 * result + (earthquakeTime != null ? earthquakeTime.hashCode() : 0);
         result = 31 * result + (province != null ? province.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
