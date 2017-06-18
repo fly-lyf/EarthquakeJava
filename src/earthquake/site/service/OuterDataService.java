@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -141,7 +140,7 @@ public class OuterDataService {
                 log.error(e.getStackTrace()[i]);
             }
         }
-
+        List<EarthquakeInfo> infoList = new ArrayList<>();
         for (Object earthquakeObj : earthquakeJSONs) {
             EarthquakeInfo info = new EarthquakeInfo();
             JSONObject json = (JSONObject) earthquakeObj;
@@ -240,9 +239,10 @@ public class OuterDataService {
                 info.setUndealed(location);
             }
             if (infoRepository.getByEventId(eventId).size() == 0) {
-                infoRepository.add(info);
+                infoList.add(info);
             }
         }
+        infoRepository.batchInsert(infoList);
     }
 
     //百度百科信息轮询

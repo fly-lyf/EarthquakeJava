@@ -13,6 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 继承通用仓库接口，并实现基于HQL的通用查询操作
@@ -69,7 +70,7 @@ GenericJpaBaseRepository<ID extends Serializable, E, F>
     }
 
     @Override
-    public void add(E entity) {
+    public void insert(E entity) {
         entityManager.persist(entity);
     }
 
@@ -93,13 +94,24 @@ GenericJpaBaseRepository<ID extends Serializable, E, F>
         )).executeUpdate();
     }
 
-    @Override
     public int getCount() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> critQuery = criteriaBuilder.createQuery(Long.class);
         Root<E> root = critQuery.from(entityClass);
         critQuery.select(criteriaBuilder.countDistinct(root));
         return entityManager.createQuery(critQuery).getSingleResult().intValue();
+    }
+
+    public void batchInsert(List<E> entityList) {
+        for (int i = 0; i < entityList.size(); i++) {
+            entityManager.persist(entityList.get(i));
+            if (i % 20 == 0) {
+                entityManager.flush();
+                entityManager.clear();
+            }
+        }
+        entityManager.flush();
+        entityManager.clear();
     }
 
     //构造条件映射
