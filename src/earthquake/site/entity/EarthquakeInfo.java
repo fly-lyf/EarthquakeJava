@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by fly on 2017/6/18 0018.
+ * Created by fly on 2017/6/19 0019.
  */
 @Entity
 @Table(name = "earthquake_info", schema = "earthquake", catalog = "")
@@ -20,6 +20,7 @@ public class EarthquakeInfo {
     private String province;
     private String city;
     private String county;
+    private String undealed;
     private String cause;
     private String suggestion;
 
@@ -135,6 +136,16 @@ public class EarthquakeInfo {
     }
 
     @Basic
+    @Column(name = "undealed", nullable = true, length = 255)
+    public String getUndealed() {
+        return undealed;
+    }
+
+    public void setUndealed(String undealed) {
+        this.undealed = undealed;
+    }
+
+    @Basic
     @Column(name = "cause", nullable = true, length = -1)
     public String getCause() {
         return cause;
@@ -173,6 +184,7 @@ public class EarthquakeInfo {
         if (province != null ? !province.equals(info.province) : info.province != null) return false;
         if (city != null ? !city.equals(info.city) : info.city != null) return false;
         if (county != null ? !county.equals(info.county) : info.county != null) return false;
+        if (undealed != null ? !undealed.equals(info.undealed) : info.undealed != null) return false;
         if (cause != null ? !cause.equals(info.cause) : info.cause != null) return false;
         if (suggestion != null ? !suggestion.equals(info.suggestion) : info.suggestion != null) return false;
 
@@ -192,6 +204,7 @@ public class EarthquakeInfo {
         result = 31 * result + (province != null ? province.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (county != null ? county.hashCode() : 0);
+        result = 31 * result + (undealed != null ? undealed.hashCode() : 0);
         result = 31 * result + (cause != null ? cause.hashCode() : 0);
         result = 31 * result + (suggestion != null ? suggestion.hashCode() : 0);
         return result;

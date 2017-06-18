@@ -20,7 +20,6 @@ public class InfoRepository extends GenericJpaBaseRepository<Integer, Earthquake
 
     public List<EarthquakeInfo> getByEventId(String eventId) {
         String query = "select entity from EarthquakeInfo entity where entity.eventId='" + eventId + "'";
-        System.out.println(query);
         TypedQuery<EarthquakeInfo> typedQuery = entityManager.createQuery(query, entityClass);
         return typedQuery.getResultList();
     }
