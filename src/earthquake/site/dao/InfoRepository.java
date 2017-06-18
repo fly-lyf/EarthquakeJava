@@ -18,6 +18,13 @@ import java.util.Map;
 @Repository
 public class InfoRepository extends GenericJpaBaseRepository<Integer, EarthquakeInfo, BriefSearchForm> {
 
+    public List<EarthquakeInfo> getByEventId(String eventId) {
+        String query = "select entity from EarthquakeInfo entity where entity.eventId='" + eventId + "'";
+        System.out.println(query);
+        TypedQuery<EarthquakeInfo> typedQuery = entityManager.createQuery(query, entityClass);
+        return typedQuery.getResultList();
+    }
+
 
     //根据发生地、时间等查询地震基本信息
     public List<EarthquakeInfo> getEarthquakeInfoByCondition(BriefSearchForm briefSearchForm) {
@@ -39,12 +46,12 @@ public class InfoRepository extends GenericJpaBaseRepository<Integer, Earthquake
                 case "province":
                 case "city":
                 case "county":
-                    if(!entry.getValue().equals("") && entry.getValue() != null){
+                    if (!entry.getValue().equals("") && entry.getValue() != null) {
                         subQuery.add("entity." + key + " like '%" + entry.getValue() + "%'");
                     }
                     break;
                 case "eventId":
-                    subQuery.add("entity." + key + "='" + entry.getValue()+"'");
+                    subQuery.add("entity." + key + "='" + entry.getValue() + "'");
                     break;
                 case "magnitude":
                     subQuery.add("entity." + key + "=" + entry.getValue());
@@ -55,5 +62,6 @@ public class InfoRepository extends GenericJpaBaseRepository<Integer, Earthquake
         TypedQuery<EarthquakeInfo> query = getTypedQuery(subQuery, attrsMap, "earthquakeTime", "2");
         return query.getResultList();
     }
+
 
 }

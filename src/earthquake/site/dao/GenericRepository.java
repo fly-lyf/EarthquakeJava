@@ -25,4 +25,6 @@ public interface GenericRepository<ID extends Serializable, E>
     void delete(@NotNull E entity);
 
     void deleteById(@NotNull ID id);
+
+    int getCount();
 }

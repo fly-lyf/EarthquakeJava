@@ -1,7 +1,5 @@
 package earthquake.site.dao;
 
-import earthquake.site.entity.EarthquakeAdministrativeDivision;
-import earthquake.site.entity.EarthquakeInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,17 +11,17 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * 继承通用仓库接口，并实现基于HQL的通用查询操作
+ *
  * @param <ID>
  * @param <E>
  */
 public abstract class
-        GenericJpaBaseRepository<ID extends Serializable, E, F>
+GenericJpaBaseRepository<ID extends Serializable, E, F>
         implements GenericRepository<ID, E> {
     protected final Class<ID> idClass;
     protected final Class<E> entityClass;
@@ -95,6 +93,15 @@ public abstract class
         )).executeUpdate();
     }
 
+    @Override
+    public int getCount() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> critQuery = criteriaBuilder.createQuery(Long.class);
+        Root<E> root = critQuery.from(entityClass);
+        critQuery.select(criteriaBuilder.countDistinct(root));
+        return entityManager.createQuery(critQuery).getSingleResult().intValue();
+    }
+
     //构造条件映射
     public HashMap<String, Object> getConditionMap(F form) {
 
@@ -104,7 +111,7 @@ public abstract class
         for (int i = 0; i < fields.length; i++) {
             Field field = fields[i];
             String attrName = field.getName();
-            if(attrName.equals("pageCount")){
+            if (attrName.equals("pageCount")) {
                 flag = true;
             }
             try {
@@ -116,7 +123,7 @@ public abstract class
                 e.printStackTrace();
             }
         }
-        if(!flag){
+        if (!flag) {
             attrsMap.put("pageCount", "1");
             attrsMap.put("pageNum", "10");
         }
@@ -137,7 +144,7 @@ public abstract class
             }
         }
 
-        if(attrsMap.get("orderName") != null && !attrsMap.get("orderName").equals("")){
+        if (attrsMap.get("orderName") != null && !attrsMap.get("orderName").equals("")) {
             String sqlOrder = "";
             if (attrsMap.get("order").equals("2")) {
                 sqlOrder = "desc";
@@ -172,7 +179,7 @@ public abstract class
         }
 
 
-        if(!orderName.equals("") && !order.equals("")){
+        if (!orderName.equals("") && !order.equals("")) {
             String sqlOrder = "";
             if (order.equals("2")) {
                 sqlOrder = "desc";
