@@ -109,7 +109,7 @@ public abstract class
             }
             try {
                 Object value = field.get(form);
-                if (value != null) {
+                if (value != null && !value.equals("")) {
                     attrsMap.put(attrName, value);
                 }
             } catch (IllegalAccessException e) {

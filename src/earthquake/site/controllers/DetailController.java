@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 /**
  * Created by fly on 2016/10/13.
+ * 详情页控制器
  */
 
 @Controller

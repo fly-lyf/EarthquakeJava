@@ -39,7 +39,9 @@ public class InfoRepository extends GenericJpaBaseRepository<Integer, Earthquake
                 case "province":
                 case "city":
                 case "county":
-                    subQuery.add("entity." + key + " like '%" + entry.getValue() + "%'");
+                    if(!entry.getValue().equals("") && entry.getValue() != null){
+                        subQuery.add("entity." + key + " like '%" + entry.getValue() + "%'");
+                    }
                     break;
                 case "eventId":
                     subQuery.add("entity." + key + "='" + entry.getValue()+"'");

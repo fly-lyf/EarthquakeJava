@@ -21,8 +21,20 @@
             <appender-ref ref="Console" />
             <appender-ref ref="WroxFileAppender" />
         </root>
+    </loggers>
+    <loggers>
+        <root level="info">
+            <appender-ref ref="Console" />
+            <appender-ref ref="WroxFileAppender" />
+        </root>
         <logger name="com.wrox" level="info" />
         <logger name="org.apache" level="info" />
         <logger name="org.springframework" level="info" />
+    </loggers>
+    <loggers>
+        <root level="error">
+            <appender-ref ref="Console" />
+            <appender-ref ref="WroxFileAppender" />
+        </root>
     </loggers>
 </configuration>

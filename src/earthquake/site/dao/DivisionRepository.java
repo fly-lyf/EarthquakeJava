@@ -5,7 +5,6 @@ import earthquake.site.forms.BriefSearchForm;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,9 +30,7 @@ public class DivisionRepository extends GenericJpaBaseRepository<Integer, Earthq
                 case "province":
                 case "city":
                 case "county":
-                    if(!entry.getValue().equals("")){
-                        subQuery.add("entity." + key + " like '%" + entry.getValue() + "%'");
-                    }
+                    subQuery.add("entity." + key + " like '%" + entry.getValue() + "%'");
                     break;
             }
         }

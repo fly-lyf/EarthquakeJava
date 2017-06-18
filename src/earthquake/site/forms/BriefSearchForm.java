@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * Created by fly on 2017/6/14.
+ * 简报查询表单
  */
 public class BriefSearchForm {
 

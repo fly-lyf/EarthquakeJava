@@ -12,6 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * 代替web.xml用于部署配置
+ */
 @SuppressWarnings("unused")
 public class Bootstrap implements WebApplicationInitializer
 {

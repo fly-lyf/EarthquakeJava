@@ -32,6 +32,10 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
+/**
+ * 主servlet dispatcher
+ */
+
 @Configuration
 @EnableScheduling
 @EnableAsync(

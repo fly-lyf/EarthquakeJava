@@ -23,6 +23,10 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 副dispatchar，为啥要分成两个忘记了，书上有
+ */
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(

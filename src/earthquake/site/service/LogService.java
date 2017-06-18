@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
 public class LogService {
 
     @Inject
-    LogRepository logRepository;
+    private LogRepository logRepository;
 
     @Scheduled(fixedDelay = 120_000L, initialDelay = 10_000L)
     @Transactional

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by fly on 2016/10/14.
  */
-public class CrawlerForm {
+public class PyCrawlerForm {
 
     public List<String> urls;
     public String keywords;

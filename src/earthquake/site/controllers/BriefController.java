@@ -5,17 +5,20 @@ import earthquake.site.dao.InfoRepository;
 import earthquake.site.entity.EarthquakeAdministrativeDivision;
 import earthquake.site.entity.EarthquakeInfo;
 import earthquake.site.forms.BriefSearchForm;
+import earthquake.site.service.OuterDataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by fly on 2017/6/13.
+ * 简报
  */
 
 @Controller
@@ -26,10 +29,12 @@ public class BriefController {
     private InfoRepository infoRepository;
     @Inject
     private DivisionRepository divisionRepository;
+    @Inject
+    private OuterDataService outerDataService;
 
     @ResponseBody
     @RequestMapping(value = "/first")
-    public HashMap<String, Object> briefFirst(BriefSearchForm briefSearchForm){
+    public HashMap<String, Object> briefFirst(BriefSearchForm briefSearchForm) throws IOException {
         HashMap<String, Object> result = new HashMap<>();
 
         List<EarthquakeInfo> earthquakeInfoList = infoRepository.getEarthquakeInfoByCondition(briefSearchForm);
@@ -58,16 +63,27 @@ public class BriefController {
                     historyEarthquakeCounty.add(earthquakeInfo);
                 }
             }
+            result.put("historyEarthquakeCounty", historyEarthquakeCounty);
 
             for (EarthquakeInfo earthquakeInfo : historyEarthquake) {
                 if (!info.getCounty().contains(earthquakeInfo.getCounty()) && !earthquakeInfo.getCounty().contains(info.getCounty())){
                     historyEarthquakeCity.add(earthquakeInfo);
                 }
             }
-
             result.put("historyEarthquakeCity", historyEarthquakeCity);
 
-            result.put("historyEarthquakeCounty", historyEarthquakeCounty);
+            String province = info.getProvince();
+            String city = info.getCity();
+            String county = info.getCounty();
+
+            Object weatherInfo = outerDataService.getWeather(city);
+            result.put("weatherInfo", weatherInfo);
+
+            Object nearCounty = outerDataService.getNearDistrict(city, county);
+            result.put("nearCounty", nearCounty);
+
+            Object nearCity = outerDataService.getNearDistrict(province, city);
+            result.put("nearCity", nearCity);
 
         }else{
             result.put("pageTotal", earthquakeInfoList.size());
