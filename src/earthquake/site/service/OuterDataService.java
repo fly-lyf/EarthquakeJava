@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import javax.transaction.Transactional;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -35,8 +35,9 @@ public class OuterDataService {
 
     @Inject
     private InfoRepository infoRepository;
-    private int bigNumber = 99999;
+
     private static final Logger log = LogManager.getLogger();
+
     private static String[] provinces = new String[]{"北京市", "广东省", "山东省", "江苏省", "河南省", "上海市", "河北省", "浙江省", "香港特别行政区", "陕西省", "湖南省", "重庆市", "福建省", "天津市", "云南省", "四川省", "广西壮族自治区", "安徽省", "海南省", "江西省", "湖北省", "山西省", "辽宁省", "台湾省", "黑龙江", "内蒙古自治区", "澳门特别行政区", "贵州省", "甘肃省", "青海省", "新疆维吾尔自治区", "西藏区", "吉林省", "宁夏回族自治区", "北京", "广东", "山东", "江苏", "河南", "上海", "河北", "浙江", "香港", "陕西", "湖南", "重庆", "福建", "天津", "云南", "四川", "广西", "安徽", "海南", "江西", "湖北", "山西", "辽宁", "台湾", "黑龙江", "内蒙古", "澳门", "贵州", "甘肃", "青海", "新疆", "西藏", "吉林", "宁夏"};
     private static String[] division = new String[]{"州", "地区", "市", "盟", "县", "区", "旗", "城区", "行政委员会"};
 
@@ -87,8 +88,9 @@ public class OuterDataService {
     }
 
     //地震台网信息全文查询，一个星期执行一次全文查询
-    @Scheduled(fixedDelay = 302400_000L, initialDelay = 10_000L)
+    //这里有个坑，数据要到全部数据爬完之后才能写进数据库里，也就是要跑20分钟~~
     @Transactional
+    @Scheduled(fixedDelay = 302400_000L)
     public void getAllSeismicNetwork() throws IOException, InterruptedException {
         int total = 0;
         String request = "http://www.ceic.ac.cn/ajax/search?&&jingdu1=&&jingdu2=&&weidu1=&&weidu2=&&height1=&&height2=&&zhenji1=&&zhenji2=&&callback=jQuery180007914527465449717_1497694137301&_=1497694241407&&page=";
@@ -107,12 +109,12 @@ public class OuterDataService {
         for (int i = 1; i <= total; i++) {
             resText = getEntity(request+i);
             EarthquakeInfoParser(resText);
-            Thread.sleep(3000);
+            Thread.sleep(4000);
         }
     }
 
     //地震台网信息轮询
-    @Scheduled(fixedDelay = 43200_000L, initialDelay = 1800_000L)
+    @Scheduled(fixedDelay = 43200_000L, initialDelay = 3600_000L)
     @Transactional
     public void getSeismicNetwork() throws IOException {
         Calendar cal = Calendar.getInstance();
@@ -203,6 +205,7 @@ public class OuterDataService {
                             }
                         }
                     }
+                    int bigNumber = 99999;
                     int position = bigNumber;
                     for (Map.Entry<String, Integer> stringIntegerEntry : divPositionMap.entrySet()) {
                         if (stringIntegerEntry.getValue() < position) {

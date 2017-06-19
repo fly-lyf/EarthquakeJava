@@ -74,7 +74,6 @@ public class RootContextConfiguration implements AsyncConfigurer, SchedulingConf
     }
 
     //数据库持久化工厂，用了hibernate框架
-    //todo-fly 修改数据源类型
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         Map<String, Object> properties = new Hashtable<>();

@@ -4,7 +4,12 @@ import earthquake.site.entity.EarthquakeInfo;
 import earthquake.site.forms.BriefSearchForm;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.FlushModeType;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +27,23 @@ public class InfoRepository extends GenericJpaBaseRepository<Integer, Earthquake
         String query = "select entity from EarthquakeInfo entity where entity.eventId='" + eventId + "'";
         TypedQuery<EarthquakeInfo> typedQuery = entityManager.createQuery(query, entityClass);
         return typedQuery.getResultList();
+    }
+
+    public int getCount() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> critQuery = criteriaBuilder.createQuery(Long.class);
+        Root<EarthquakeInfo> root = critQuery.from(entityClass);
+        critQuery.select(criteriaBuilder.countDistinct(root));
+        return entityManager.createQuery(critQuery).getSingleResult().intValue();
+    }
+
+    public void batchInsert(List<EarthquakeInfo> entityList) {
+        for (int i = 0; i < entityList.size(); i++) {
+            entityManager.persist(entityList.get(i));
+        }
+        //这个flush操作不管用，不知道为啥
+        entityManager.flush();
+        entityManager.clear();
     }
 
 
