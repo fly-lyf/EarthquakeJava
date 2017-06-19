@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -94,25 +95,8 @@ GenericJpaBaseRepository<ID extends Serializable, E, F>
         )).executeUpdate();
     }
 
-    public int getCount() {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Long> critQuery = criteriaBuilder.createQuery(Long.class);
-        Root<E> root = critQuery.from(entityClass);
-        critQuery.select(criteriaBuilder.countDistinct(root));
-        return entityManager.createQuery(critQuery).getSingleResult().intValue();
-    }
 
-    public void batchInsert(List<E> entityList) {
-        for (int i = 0; i < entityList.size(); i++) {
-            entityManager.persist(entityList.get(i));
-            if (i % 20 == 0) {
-                entityManager.flush();
-                entityManager.clear();
-            }
-        }
-        entityManager.flush();
-        entityManager.clear();
-    }
+
 
     //构造条件映射
     public HashMap<String, Object> getConditionMap(F form) {

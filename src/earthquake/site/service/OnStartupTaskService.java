@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 
 //@Component
-public class OnStartupTask implements ApplicationListener<ContextRefreshedEvent> {
+public class OnStartupTaskService implements ApplicationListener<ContextRefreshedEvent> {
 
     @Inject
     OuterDataService outerDataService;
