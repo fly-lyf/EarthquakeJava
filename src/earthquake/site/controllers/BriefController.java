@@ -2,9 +2,12 @@ package earthquake.site.controllers;
 
 import earthquake.site.dao.DivisionRepository;
 import earthquake.site.dao.InfoRepository;
+import earthquake.site.dao.StatusRepository;
 import earthquake.site.entity.EarthquakeAdministrativeDivision;
 import earthquake.site.entity.EarthquakeInfo;
 import earthquake.site.forms.BriefSearchForm;
+import earthquake.site.entity.EarthquakeRule;
+import earthquake.site.forms.StatusSearchForm;
 import earthquake.site.service.OuterDataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +34,8 @@ public class BriefController {
     private DivisionRepository divisionRepository;
     @Inject
     private OuterDataService outerDataService;
+    @Inject
+    private StatusRepository statusRepository;
 
     @ResponseBody
     @RequestMapping(value = "/first")
@@ -39,7 +44,7 @@ public class BriefController {
 
         List<EarthquakeInfo> earthquakeInfoList = infoRepository.getEarthquakeInfoByCondition(briefSearchForm);
         result.put("earthquakeInfo", earthquakeInfoList);
-
+        System.out.print("earthquakeInfo"+earthquakeInfoList);
         if(earthquakeInfoList.size() == 1){
             EarthquakeInfo info = earthquakeInfoList.get(0);
             String eventId = info.getEventId();
@@ -90,13 +95,16 @@ public class BriefController {
         }
         return result;
     }
-
+    @ResponseBody
     @RequestMapping(value = "/second")
-    public String briefSecond(){
-
-        return null;
+    public HashMap<String,Object> briefSecond(StatusSearchForm statusSearchForm) throws IOException{
+        HashMap<String, Object> result = new HashMap<>();
+        List<EarthquakeRule> statusInfo = statusRepository.getStatusByCondition(statusSearchForm);
+        result.put("statusInfo", statusInfo);
+        System.out.print("result"+result);
+        return result;
     }
-
+    @ResponseBody
     @RequestMapping(value = "/third")
     public String briefThird(){
 

@@ -1,6 +1,7 @@
 package earthquake.site.dao;
 
 import earthquake.site.entity.EarthquakeInfo;
+import earthquake.site.entity.EarthquakeLoss;
 import earthquake.site.forms.BriefSearchForm;
 import org.springframework.stereotype.Repository;
 
@@ -28,7 +29,6 @@ public class InfoRepository extends GenericJpaBaseRepository<Integer, Earthquake
         TypedQuery<EarthquakeInfo> typedQuery = entityManager.createQuery(query, entityClass);
         return typedQuery.getResultList();
     }
-
     public int getCount() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> critQuery = criteriaBuilder.createQuery(Long.class);
