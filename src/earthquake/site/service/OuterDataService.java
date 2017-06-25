@@ -15,6 +15,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -256,8 +262,37 @@ public class OuterDataService {
             String location = locations[i];
             String request = requestStr + location;
             String resText = getEntity(request);
-            System.out.println(resText);
-            System.out.println();
+
+            Document doc = Jsoup.parse(resText);
+            Elements level2 = doc.select(".level-2");
+            for (Element element : level2) {
+                TextNode h2Text = element.select("h2").get(0).textNodes().get(0);
+                Element sib = element.nextElementSibling();
+                switch (h2Text.text()){
+                    case "行政区划":
+                        while(sib.hasAttr("class") && sib.attr("class").equals("para") || sib.attr("class").equals("table-view log-set-param")){
+                            System.out.println(sib.html());
+                            sib = sib.nextElementSibling();
+                            System.out.println(sib.attr("class"));
+                        }
+                        break;
+                    case "人口民族":
+                        while(sib.hasAttr("class") && sib.attr("class").equals("para")){
+//                            System.out.println(sib.text());
+                        }
+                        break;
+                    case "地理环境":
+                        while(sib.hasAttr("class") && sib.attr("class").equals("para")){
+//                            System.out.println(sib.text());
+                        }
+                        break;
+                    case "自然资源":
+                        while(sib.hasAttr("class") && sib.attr("class").equals("para")){
+//                            System.out.println(sib.text());
+                        }
+                        break;
+                }
+            }
         }
     }
 
