@@ -127,6 +127,25 @@ GenericJpaBaseRepository<ID extends Serializable, E, F>
     }
 
     //构造typedQuery
+    public TypedQuery<E> getTypedQuery(ArrayList<String> subQuery) {
+
+        String query = "select entity from " + entityClass.getSimpleName() + " entity";
+
+        for (int i = 0; i < subQuery.size(); i++) {
+            String sub = subQuery.get(i);
+            if (i == 0) {
+                query = query + " where " + sub;
+            } else {
+                query = query + " and " + sub;
+            }
+        }
+
+        log.info(query);
+        System.out.println(query);
+        TypedQuery<E> typedQuery = entityManager.createQuery(query, entityClass);
+        return typedQuery;
+    }
+
     public TypedQuery<E> getTypedQuery(ArrayList<String> subQuery, HashMap<String, Object> attrsMap) {
 
         String query = "select entity from " + entityClass.getSimpleName() + " entity";

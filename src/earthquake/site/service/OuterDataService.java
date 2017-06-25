@@ -17,7 +17,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 
 import javax.inject.Inject;
@@ -90,8 +89,8 @@ public class OuterDataService {
 
     //地震台网信息全文查询，一个星期执行一次全文查询
     //这里有个坑，数据要到全部数据爬完之后才能写进数据库里，也就是要跑20分钟~~
-//    @Transactional
-//    @Scheduled(fixedDelay = 302400_000L)
+    @Transactional
+    @Scheduled(fixedDelay = 302400_000L)
     public void getAllSeismicNetwork() throws IOException, InterruptedException {
         int total = 0;
         String request = "http://www.ceic.ac.cn/ajax/search?&&jingdu1=&&jingdu2=&&weidu1=&&weidu2=&&height1=&&height2=&&zhenji1=&&zhenji2=&&callback=jQuery180007914527465449717_1497694137301&_=1497694241407&&page=";
@@ -101,7 +100,7 @@ public class OuterDataService {
         try {
             resJson = JSON.parseObject(resText);
             total = (int) resJson.get("num");
-        } catch (Exception e) {
+        }catch (Exception e){
             log.error(e);
             for (int i = 0; i < e.getStackTrace().length; i++) {
                 log.error(e.getStackTrace()[i]);
