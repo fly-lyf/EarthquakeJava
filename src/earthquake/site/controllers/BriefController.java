@@ -7,8 +7,10 @@ import earthquake.site.entity.EarthquakeAdministrativeDivision;
 import earthquake.site.entity.EarthquakeInfo;
 import earthquake.site.forms.BriefSearchForm;
 import earthquake.site.entity.EarthquakeRule;
+import earthquake.site.entity.EarthquakeRespond;
 import earthquake.site.forms.StatusSearchForm;
 import earthquake.site.service.OuterDataService;
+import earthquake.site.service.StatusService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +37,7 @@ public class BriefController {
     @Inject
     private OuterDataService outerDataService;
     @Inject
-    private StatusRepository statusRepository;
+    private StatusService statusService;
 
     @ResponseBody
     @RequestMapping(value = "/first")
@@ -96,18 +98,20 @@ public class BriefController {
         return result;
     }
     @ResponseBody
-    @RequestMapping(value = "/second")
-    public HashMap<String,Object> briefSecond(StatusSearchForm statusSearchForm) throws IOException{
+    @RequestMapping(value = "/second",params = "id")
+    public HashMap<String,Object> briefSecond(String id) throws IOException{
+//        HashMap<String, Object> result = new HashMap<>();
+//        List<EarthquakeRule> statusInfo = statusRepository.getStatusByCondition(statusSearchForm);
+//        result.put("statusInfo", statusInfo);
+//        System.out.print("result"+result);
         HashMap<String, Object> result = new HashMap<>();
-        List<EarthquakeRule> statusInfo = statusRepository.getStatusByCondition(statusSearchForm);
-        result.put("statusInfo", statusInfo);
-        System.out.print("result"+result);
+        List<EarthquakeRespond> responds = statusService.getRespond(id);
+        result.put("respond",responds);
         return result;
     }
     @ResponseBody
     @RequestMapping(value = "/third")
     public String briefThird(){
-
         return null;
     }
 }
