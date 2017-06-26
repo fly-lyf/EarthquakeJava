@@ -50,12 +50,17 @@ public class StatusRepository extends GenericJpaBaseRepository<Integer, Earthqua
     public int getRuleByEventId(int death,double magnitude){
             // 拼接条件获取应急等级
             ArrayList<String> subQuery = new ArrayList<>();
-            subQuery.add("entity.minDeath < " + death);
+            subQuery.add("entity.minDeath <= " + death);
             subQuery.add("entity.maxDeath > " + death);
             subQuery.add("entity.maxMagnitude > " + magnitude);
-            subQuery.add("entity.minMagnitude < " + magnitude);
+            subQuery.add("entity.minMagnitude <= " + magnitude);
             TypedQuery<EarthquakeRule> query = getTypedQuery(subQuery);
-            return query.getResultList().get(0).getRuleId();
+            List<EarthquakeRule> result = query.getResultList();
+            if(result.size()!=1){
+                return 3;
+            }else {
+                return query.getResultList().get(0).getRuleId();
+            }
         }
 //    // 获得响应等级
 //    public List<EarthquakeRespond> getRespond(String id){
