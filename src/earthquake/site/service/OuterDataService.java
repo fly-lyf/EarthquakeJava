@@ -15,6 +15,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -89,8 +95,8 @@ public class OuterDataService {
 
     //地震台网信息全文查询，一个星期执行一次全文查询
     //这里有个坑，数据要到全部数据爬完之后才能写进数据库里，也就是要跑20分钟~~
-    //@Transactional
-    //@Scheduled(fixedDelay = 302400_000L)
+    @Transactional
+    @Scheduled(fixedDelay = 302400_000L)
     public void getAllSeismicNetwork() throws IOException, InterruptedException {
         int total = 0;
         String request = "http://www.ceic.ac.cn/ajax/search?&&jingdu1=&&jingdu2=&&weidu1=&&weidu2=&&height1=&&height2=&&zhenji1=&&zhenji2=&&callback=jQuery180007914527465449717_1497694137301&_=1497694241407&&page=";
@@ -107,7 +113,7 @@ public class OuterDataService {
             }
         }
         for (int i = 1; i <= total; i++) {
-            resText = getEntity(request+i);
+            resText = getEntity(request + i);
             EarthquakeInfoParser(resText);
             Thread.sleep(4000);
         }
@@ -249,6 +255,51 @@ public class OuterDataService {
     }
 
     //百度百科信息轮询
+    public static void getBaike(String[] locations) throws IOException {
+
+        String requestStr = "http://baike.baidu.com/item/";
+        for (int i = 0; i < locations.length; i++) {
+            String location = locations[i];
+            String request = requestStr + location;
+            String resText = getEntity(request);
+
+            Document doc = Jsoup.parse(resText);
+            Elements level2 = doc.select(".level-2");
+            for (Element element : level2) {
+                TextNode h2Text = element.select("h2").get(0).textNodes().get(0);
+                Element sib = element.nextElementSibling();
+                switch (h2Text.text()){
+                    case "行政区划":
+                        while(sib.hasAttr("class") && sib.attr("class").equals("para") || sib.attr("class").equals("table-view log-set-param")){
+                            System.out.println(sib.html());
+                            sib = sib.nextElementSibling();
+                            System.out.println(sib.attr("class"));
+                        }
+                        break;
+                    case "人口民族":
+                        while(sib.hasAttr("class") && sib.attr("class").equals("para")){
+//                            System.out.println(sib.text());
+                        }
+                        break;
+                    case "地理环境":
+                        while(sib.hasAttr("class") && sib.attr("class").equals("para")){
+//                            System.out.println(sib.text());
+                        }
+                        break;
+                    case "自然资源":
+                        while(sib.hasAttr("class") && sib.attr("class").equals("para")){
+//                            System.out.println(sib.text());
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        String[] locations = new String[]{"汶川","临沂市"};
+        getBaike(locations);
+    }
 
 
     //发送http请求
