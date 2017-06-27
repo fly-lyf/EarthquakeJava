@@ -59,7 +59,7 @@ public class StatusRepository extends GenericJpaBaseRepository<Integer, Earthqua
             if(result.size()!=1){
                 return 3;
             }else {
-                return query.getResultList().get(0).getRuleId();
+                return result.get(0).getRuleId();
             }
         }
 //    // 获得响应等级

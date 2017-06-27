@@ -37,6 +37,12 @@ public class StatusService {
         EarthquakeLoss earthquakeLoss = earthquakeLosses.get(0);
         Integer death = earthquakeLoss.getDeath();
         Double magnitude = earthquakeInfos.get(0).getMagnitude();
+        if(death == null){
+            death = 0;
+        }
+        if(magnitude == null){
+            magnitude = 0.0;
+        }
         System.out.print("death"+death);
         System.out.print("magnitude"+magnitude);
 
