@@ -96,9 +96,8 @@ public class OuterDataService {
 
     //地震台网信息全文查询，一个星期执行一次全文查询
     //这里有个坑，数据要到全部数据爬完之后才能写进数据库里，也就是要跑20分钟~~
-    //todo-fly 增加division_id的写入逻辑
-//    @Transactional
-//    @Scheduled(fixedDelay = 302400_000L)
+    @Transactional
+    @Scheduled(fixedDelay = 302400_000L)
     public void getAllSeismicNetwork() throws IOException, InterruptedException {
         int total = 0;
         String request = "http://www.ceic.ac.cn/ajax/search?&&jingdu1=&&jingdu2=&&weidu1=&&weidu2=&&height1=&&height2=&&zhenji1=&&zhenji2=&&callback=jQuery180007914527465449717_1497694137301&_=1497694241407&&page=";
@@ -122,7 +121,6 @@ public class OuterDataService {
     }
 
     //地震台网信息轮询
-    //todo-fly 增加division_id的写入逻辑
     @Scheduled(fixedDelay = 43200_000L, initialDelay = 3600_000L)
     @Transactional
     public void getSeismicNetwork() throws IOException {
@@ -138,7 +136,7 @@ public class OuterDataService {
     }
 
     //百度百科信息轮询
-    public static void getBaike(String[] locations) throws IOException {
+    public void getBaike(String[] locations) throws IOException {
 
         String requestStr = "http://baike.baidu.com/item/";
         for (int i = 0; i < locations.length; i++) {
@@ -363,13 +361,6 @@ public class OuterDataService {
         }
         infoRepository.batchInsert(infoList);
     }
-
-
-    public static void main(String[] args) throws IOException {
-        String[] locations = new String[]{"临沂市", "新余"};
-        getBaike(locations);
-    }
-
 
     //发送http请求
     public static String getEntity(String url) throws IOException {
