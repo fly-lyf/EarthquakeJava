@@ -3,10 +3,9 @@ package earthquake.site.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import java.net.URLEncoder;
-
+import earthquake.site.dao.DivisionRepository;
 import earthquake.site.dao.InfoRepository;
+import earthquake.site.entity.EarthquakeAdministrativeDivision;
 import earthquake.site.entity.EarthquakeInfo;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,15 +17,15 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -41,6 +40,8 @@ public class OuterDataService {
 
     @Inject
     private InfoRepository infoRepository;
+    @Inject
+    private DivisionRepository divisionRepository;
 
     private static final Logger log = LogManager.getLogger();
 
@@ -95,8 +96,9 @@ public class OuterDataService {
 
     //地震台网信息全文查询，一个星期执行一次全文查询
     //这里有个坑，数据要到全部数据爬完之后才能写进数据库里，也就是要跑20分钟~~
-    @Transactional
-    @Scheduled(fixedDelay = 302400_000L)
+    //todo-fly 增加division_id的写入逻辑
+//    @Transactional
+//    @Scheduled(fixedDelay = 302400_000L)
     public void getAllSeismicNetwork() throws IOException, InterruptedException {
         int total = 0;
         String request = "http://www.ceic.ac.cn/ajax/search?&&jingdu1=&&jingdu2=&&weidu1=&&weidu2=&&height1=&&height2=&&zhenji1=&&zhenji2=&&callback=jQuery180007914527465449717_1497694137301&_=1497694241407&&page=";
@@ -106,7 +108,7 @@ public class OuterDataService {
         try {
             resJson = JSON.parseObject(resText);
             total = (int) resJson.get("num");
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e);
             for (int i = 0; i < e.getStackTrace().length; i++) {
                 log.error(e.getStackTrace()[i]);
@@ -120,6 +122,7 @@ public class OuterDataService {
     }
 
     //地震台网信息轮询
+    //todo-fly 增加division_id的写入逻辑
     @Scheduled(fixedDelay = 43200_000L, initialDelay = 3600_000L)
     @Transactional
     public void getSeismicNetwork() throws IOException {
@@ -132,6 +135,113 @@ public class OuterDataService {
 
         String resText = getEntity(request);
         EarthquakeInfoParser(resText);
+    }
+
+    //百度百科信息轮询
+    public static void getBaike(String[] locations) throws IOException {
+
+        String requestStr = "http://baike.baidu.com/item/";
+        for (int i = 0; i < locations.length; i++) {
+            String location = locations[i];
+            String request = requestStr + location;
+            String resText = getEntity(request);
+
+            String administrative = "";
+            String population = "";
+            String naturalSource = "";
+            String terrain = "";
+            String structure = "";
+            String realm = "";
+            String environment = "";
+            String climate = "";
+            Document doc = Jsoup.parse(resText);
+            Elements level2 = doc.select(".level-2");
+            for (Element element : level2) {
+                TextNode h2Text = element.select("h2").get(0).textNodes().get(0);
+                Element sib = element.nextElementSibling();
+                switch (h2Text.text()) {
+                    case "行政区划":
+                        while (sib.hasAttr("class") && !sib.hasClass("leve-2")) {
+                            administrative = administrative.concat(sib.html());
+                            sib = sib.nextElementSibling();
+                        }
+                        break;
+                    case "人口民族":
+                    case "人口":
+                        while (sib.hasAttr("class") && !sib.hasClass("level-2")) {
+                            population = population.concat(sib.html());
+                            sib = sib.nextElementSibling();
+                        }
+                        break;
+                    case "地理环境":
+                        while (sib.hasAttr("class") && !sib.hasClass("level-2")) {
+                            if (sib.hasClass("level-3")) {
+                                TextNode h3Text = sib.select("h3").get(0).textNodes().get(0);
+                                sib = sib.nextElementSibling();
+                                switch (h3Text.text()) {
+                                    case "境域":
+                                    case "地理境域":
+                                    case "位置":
+                                    case "面积":
+                                        while (sib.hasClass("para") || sib.hasClass("table-view")) {
+                                            realm = realm.concat(sib.html());
+                                            sib = sib.nextElementSibling();
+                                        }
+                                        break;
+                                    case "地形":
+                                    case "地貌":
+                                    case "地形地貌":
+                                        while (sib.hasClass("para") || sib.hasClass("table-view")) {
+                                            terrain = terrain.concat(sib.html());
+                                            sib = sib.nextElementSibling();
+                                        }
+                                        break;
+                                    case "地质":
+                                        while (sib.hasClass("para") || sib.hasClass("table-view")) {
+                                            structure = structure.concat(sib.html());
+                                            sib = sib.nextElementSibling();
+                                        }
+                                        break;
+                                    case "气候":
+                                    case "气候特征":
+                                        while (sib.hasClass("para") || sib.hasClass("table-view")) {
+                                            climate = climate.concat(sib.html());
+                                            sib = sib.nextElementSibling();
+                                        }
+                                        break;
+                                }
+                            } else if (sib.hasClass("anchor-list")) {
+                                sib = sib.nextElementSibling();
+                            } else {
+                                //一直拿不到level-3意味着没有三级标题，就都放在地理环境粒
+                                environment = environment.concat(sib.html());
+                                sib = sib.nextElementSibling();
+                            }
+                        }
+
+                        break;
+                    case "自然资源":
+                        while (sib.hasAttr("class") && !sib.hasClass("level-2")) {
+                            naturalSource = naturalSource.concat(sib.html());
+                            sib = sib.nextElementSibling();
+                        }
+                        break;
+                }
+            }
+
+            //写数据库
+            DivisionRepository divisionRepository = new DivisionRepository();
+            EarthquakeAdministrativeDivision earthquakeAdministrativeDivision = new EarthquakeAdministrativeDivision();
+            earthquakeAdministrativeDivision.setAdministrativeArea(administrative);
+            earthquakeAdministrativeDivision.setPopulation(population);
+            earthquakeAdministrativeDivision.setNaturalSource(naturalSource);
+            earthquakeAdministrativeDivision.setClimate(climate);
+            earthquakeAdministrativeDivision.setGeoEnvironment(environment);
+            earthquakeAdministrativeDivision.setGeoTerrain(terrain);
+            earthquakeAdministrativeDivision.setGeoStructure(structure);
+            earthquakeAdministrativeDivision.setRealm(realm);
+            divisionRepository.insert(earthquakeAdministrativeDivision);
+        }
     }
 
     //解析请求并保存到数据库中，如果地震发生地解析失败，会将发生地信息存入undealed字段留待人工解析
@@ -254,50 +364,9 @@ public class OuterDataService {
         infoRepository.batchInsert(infoList);
     }
 
-    //百度百科信息轮询
-    public static void getBaike(String[] locations) throws IOException {
-
-        String requestStr = "http://baike.baidu.com/item/";
-        for (int i = 0; i < locations.length; i++) {
-            String location = locations[i];
-            String request = requestStr + location;
-            String resText = getEntity(request);
-
-            Document doc = Jsoup.parse(resText);
-            Elements level2 = doc.select(".level-2");
-            for (Element element : level2) {
-                TextNode h2Text = element.select("h2").get(0).textNodes().get(0);
-                Element sib = element.nextElementSibling();
-                switch (h2Text.text()){
-                    case "行政区划":
-                        while(sib.hasAttr("class") && sib.attr("class").equals("para") || sib.attr("class").equals("table-view log-set-param")){
-                            System.out.println(sib.html());
-                            sib = sib.nextElementSibling();
-                            System.out.println(sib.attr("class"));
-                        }
-                        break;
-                    case "人口民族":
-                        while(sib.hasAttr("class") && sib.attr("class").equals("para")){
-//                            System.out.println(sib.text());
-                        }
-                        break;
-                    case "地理环境":
-                        while(sib.hasAttr("class") && sib.attr("class").equals("para")){
-//                            System.out.println(sib.text());
-                        }
-                        break;
-                    case "自然资源":
-                        while(sib.hasAttr("class") && sib.attr("class").equals("para")){
-//                            System.out.println(sib.text());
-                        }
-                        break;
-                }
-            }
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        String[] locations = new String[]{"汶川","临沂市"};
+        String[] locations = new String[]{"临沂市", "新余"};
         getBaike(locations);
     }
 

@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by fly on 2017/6/19 0019.
+ * Created by FLY on 2017/6/28 0028.
  */
 @Entity
-@Table(name = "earthquake_info", schema = "earthquake", catalog = "")
+@Table(name = "earthquake_info", schema = "", catalog = "earthquake")
 public class EarthquakeInfo {
     private int id;
     private String eventId;
@@ -25,8 +25,7 @@ public class EarthquakeInfo {
     private String suggestion;
 
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
     }
@@ -36,7 +35,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "event_id", nullable = true, length = 20)
+    @Column(name = "event_id", nullable = true, insertable = true, updatable = true, length = 20)
     public String getEventId() {
         return eventId;
     }
@@ -46,7 +45,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "longitude", nullable = true, precision = 0)
+    @Column(name = "longitude", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getLongitude() {
         return longitude;
     }
@@ -56,7 +55,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "latitude", nullable = true, precision = 0)
+    @Column(name = "latitude", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getLatitude() {
         return latitude;
     }
@@ -66,7 +65,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "magnitude", nullable = true, precision = 0)
+    @Column(name = "magnitude", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getMagnitude() {
         return magnitude;
     }
@@ -76,7 +75,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "intensity", nullable = true, length = 255)
+    @Column(name = "intensity", nullable = true, insertable = true, updatable = true, length = 255)
     public String getIntensity() {
         return intensity;
     }
@@ -86,7 +85,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "depth", nullable = true, precision = 0)
+    @Column(name = "depth", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getDepth() {
         return depth;
     }
@@ -96,7 +95,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "earthquake_time", nullable = true)
+    @Column(name = "earthquake_time", nullable = true, insertable = true, updatable = true)
     public Timestamp getEarthquakeTime() {
         return earthquakeTime;
     }
@@ -106,7 +105,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "province", nullable = true, length = 255)
+    @Column(name = "province", nullable = true, insertable = true, updatable = true, length = 255)
     public String getProvince() {
         return province;
     }
@@ -116,7 +115,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "city", nullable = true, length = 255)
+    @Column(name = "city", nullable = true, insertable = true, updatable = true, length = 255)
     public String getCity() {
         return city;
     }
@@ -126,7 +125,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "county", nullable = true, length = 255)
+    @Column(name = "county", nullable = true, insertable = true, updatable = true, length = 255)
     public String getCounty() {
         return county;
     }
@@ -136,7 +135,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "undealed", nullable = true, length = 255)
+    @Column(name = "undealed", nullable = true, insertable = true, updatable = true, length = 255)
     public String getUndealed() {
         return undealed;
     }
@@ -146,7 +145,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "cause", nullable = true, length = -1)
+    @Column(name = "cause", nullable = true, insertable = true, updatable = true, length = 2147483647)
     public String getCause() {
         return cause;
     }
@@ -156,7 +155,7 @@ public class EarthquakeInfo {
     }
 
     @Basic
-    @Column(name = "suggestion", nullable = true, length = -1)
+    @Column(name = "suggestion", nullable = true, insertable = true, updatable = true, length = 2147483647)
     public String getSuggestion() {
         return suggestion;
     }
@@ -170,23 +169,23 @@ public class EarthquakeInfo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EarthquakeInfo info = (EarthquakeInfo) o;
+        EarthquakeInfo that = (EarthquakeInfo) o;
 
-        if (id != info.id) return false;
-        if (eventId != null ? !eventId.equals(info.eventId) : info.eventId != null) return false;
-        if (longitude != null ? !longitude.equals(info.longitude) : info.longitude != null) return false;
-        if (latitude != null ? !latitude.equals(info.latitude) : info.latitude != null) return false;
-        if (magnitude != null ? !magnitude.equals(info.magnitude) : info.magnitude != null) return false;
-        if (intensity != null ? !intensity.equals(info.intensity) : info.intensity != null) return false;
-        if (depth != null ? !depth.equals(info.depth) : info.depth != null) return false;
-        if (earthquakeTime != null ? !earthquakeTime.equals(info.earthquakeTime) : info.earthquakeTime != null)
+        if (id != that.id) return false;
+        if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;
+        if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null) return false;
+        if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null) return false;
+        if (magnitude != null ? !magnitude.equals(that.magnitude) : that.magnitude != null) return false;
+        if (intensity != null ? !intensity.equals(that.intensity) : that.intensity != null) return false;
+        if (depth != null ? !depth.equals(that.depth) : that.depth != null) return false;
+        if (earthquakeTime != null ? !earthquakeTime.equals(that.earthquakeTime) : that.earthquakeTime != null)
             return false;
-        if (province != null ? !province.equals(info.province) : info.province != null) return false;
-        if (city != null ? !city.equals(info.city) : info.city != null) return false;
-        if (county != null ? !county.equals(info.county) : info.county != null) return false;
-        if (undealed != null ? !undealed.equals(info.undealed) : info.undealed != null) return false;
-        if (cause != null ? !cause.equals(info.cause) : info.cause != null) return false;
-        if (suggestion != null ? !suggestion.equals(info.suggestion) : info.suggestion != null) return false;
+        if (province != null ? !province.equals(that.province) : that.province != null) return false;
+        if (city != null ? !city.equals(that.city) : that.city != null) return false;
+        if (county != null ? !county.equals(that.county) : that.county != null) return false;
+        if (undealed != null ? !undealed.equals(that.undealed) : that.undealed != null) return false;
+        if (cause != null ? !cause.equals(that.cause) : that.cause != null) return false;
+        if (suggestion != null ? !suggestion.equals(that.suggestion) : that.suggestion != null) return false;
 
         return true;
     }

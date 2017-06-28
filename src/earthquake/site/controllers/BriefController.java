@@ -2,13 +2,10 @@ package earthquake.site.controllers;
 
 import earthquake.site.dao.DivisionRepository;
 import earthquake.site.dao.InfoRepository;
-import earthquake.site.dao.StatusRepository;
 import earthquake.site.entity.EarthquakeAdministrativeDivision;
 import earthquake.site.entity.EarthquakeInfo;
-import earthquake.site.forms.BriefSearchForm;
-import earthquake.site.entity.EarthquakeRule;
 import earthquake.site.entity.EarthquakeRespond;
-import earthquake.site.forms.StatusSearchForm;
+import earthquake.site.forms.BriefSearchForm;
 import earthquake.site.service.OuterDataService;
 import earthquake.site.service.StatusService;
 import org.springframework.stereotype.Controller;

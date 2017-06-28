@@ -3,7 +3,7 @@ package earthquake.site.entity;
 import javax.persistence.*;
 
 /**
- * Created by fly on 2017/6/16.
+ * Created by FLY on 2017/6/26 0026.
  */
 @Entity
 @Table(name = "earthquake_administrative_division", schema = "", catalog = "earthquake")
@@ -12,9 +12,10 @@ public class EarthquakeAdministrativeDivision {
     private String province;
     private String city;
     private String county;
+    private String geoEnvironment;
     private String geoTerrain;
     private String climate;
-    private String geoEnvironment;
+    private String realm;
     private String population;
     private String administrativeArea;
     private String naturalSource;
@@ -22,7 +23,6 @@ public class EarthquakeAdministrativeDivision {
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -62,6 +62,16 @@ public class EarthquakeAdministrativeDivision {
     }
 
     @Basic
+    @Column(name = "geo_environment", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    public String getGeoEnvironment() {
+        return geoEnvironment;
+    }
+
+    public void setGeoEnvironment(String geoEnvironment) {
+        this.geoEnvironment = geoEnvironment;
+    }
+
+    @Basic
     @Column(name = "geo_terrain", nullable = true, insertable = true, updatable = true, length = 2147483647)
     public String getGeoTerrain() {
         return geoTerrain;
@@ -82,13 +92,13 @@ public class EarthquakeAdministrativeDivision {
     }
 
     @Basic
-    @Column(name = "geo_environment", nullable = true, insertable = true, updatable = true, length = 2147483647)
-    public String getGeoEnvironment() {
-        return geoEnvironment;
+    @Column(name = "realm", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    public String getRealm() {
+        return realm;
     }
 
-    public void setGeoEnvironment(String geoEnvironment) {
-        this.geoEnvironment = geoEnvironment;
+    public void setRealm(String realm) {
+        this.realm = realm;
     }
 
     @Basic
@@ -136,23 +146,23 @@ public class EarthquakeAdministrativeDivision {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EarthquakeAdministrativeDivision division = (EarthquakeAdministrativeDivision) o;
+        EarthquakeAdministrativeDivision that = (EarthquakeAdministrativeDivision) o;
 
-        if (id != division.id) return false;
-        if (province != null ? !province.equals(division.province) : division.province != null) return false;
-        if (city != null ? !city.equals(division.city) : division.city != null) return false;
-        if (county != null ? !county.equals(division.county) : division.county != null) return false;
-        if (geoTerrain != null ? !geoTerrain.equals(division.geoTerrain) : division.geoTerrain != null) return false;
-        if (climate != null ? !climate.equals(division.climate) : division.climate != null) return false;
-        if (geoEnvironment != null ? !geoEnvironment.equals(division.geoEnvironment) : division.geoEnvironment != null)
+        if (id != that.id) return false;
+        if (province != null ? !province.equals(that.province) : that.province != null) return false;
+        if (city != null ? !city.equals(that.city) : that.city != null) return false;
+        if (county != null ? !county.equals(that.county) : that.county != null) return false;
+        if (geoEnvironment != null ? !geoEnvironment.equals(that.geoEnvironment) : that.geoEnvironment != null)
             return false;
-        if (population != null ? !population.equals(division.population) : division.population != null) return false;
-        if (administrativeArea != null ? !administrativeArea.equals(division.administrativeArea) : division.administrativeArea != null)
+        if (geoTerrain != null ? !geoTerrain.equals(that.geoTerrain) : that.geoTerrain != null) return false;
+        if (climate != null ? !climate.equals(that.climate) : that.climate != null) return false;
+        if (realm != null ? !realm.equals(that.realm) : that.realm != null) return false;
+        if (population != null ? !population.equals(that.population) : that.population != null) return false;
+        if (administrativeArea != null ? !administrativeArea.equals(that.administrativeArea) : that.administrativeArea != null)
             return false;
-        if (naturalSource != null ? !naturalSource.equals(division.naturalSource) : division.naturalSource != null)
+        if (naturalSource != null ? !naturalSource.equals(that.naturalSource) : that.naturalSource != null)
             return false;
-        if (geoStructure != null ? !geoStructure.equals(division.geoStructure) : division.geoStructure != null)
-            return false;
+        if (geoStructure != null ? !geoStructure.equals(that.geoStructure) : that.geoStructure != null) return false;
 
         return true;
     }
@@ -163,9 +173,10 @@ public class EarthquakeAdministrativeDivision {
         result = 31 * result + (province != null ? province.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (county != null ? county.hashCode() : 0);
+        result = 31 * result + (geoEnvironment != null ? geoEnvironment.hashCode() : 0);
         result = 31 * result + (geoTerrain != null ? geoTerrain.hashCode() : 0);
         result = 31 * result + (climate != null ? climate.hashCode() : 0);
-        result = 31 * result + (geoEnvironment != null ? geoEnvironment.hashCode() : 0);
+        result = 31 * result + (realm != null ? realm.hashCode() : 0);
         result = 31 * result + (population != null ? population.hashCode() : 0);
         result = 31 * result + (administrativeArea != null ? administrativeArea.hashCode() : 0);
         result = 31 * result + (naturalSource != null ? naturalSource.hashCode() : 0);
