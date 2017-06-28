@@ -1,16 +1,13 @@
 package earthquake.site.dao;
 
 import earthquake.site.entity.EarthquakeInfo;
-import earthquake.site.entity.EarthquakeLoss;
 import earthquake.site.forms.BriefSearchForm;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.FlushModeType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
