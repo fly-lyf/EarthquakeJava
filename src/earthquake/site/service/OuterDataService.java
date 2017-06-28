@@ -333,7 +333,7 @@ public class OuterDataService {
                 }
                 if (divPosition.size() != 2) {
                     log.warn("发生地解析失败:" + location + " " + provincePosition + " " + cityPosition + " " + countyPosition);
-                    System.out.println("发生地解析失败:" + location + " " + provincePosition + " " + cityPosition + " " + countyPosition);
+//                    System.out.println("发生地解析失败:" + location + " " + provincePosition + " " + cityPosition + " " + countyPosition);
                     cityPosition = 0;
                     countyPosition = 0;
                 } else {
