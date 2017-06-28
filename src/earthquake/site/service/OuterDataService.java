@@ -228,7 +228,6 @@ public class OuterDataService {
             }
 
             //写数据库
-            DivisionRepository divisionRepository = new DivisionRepository();
             EarthquakeAdministrativeDivision earthquakeAdministrativeDivision = new EarthquakeAdministrativeDivision();
             earthquakeAdministrativeDivision.setAdministrativeArea(administrative);
             earthquakeAdministrativeDivision.setPopulation(population);
