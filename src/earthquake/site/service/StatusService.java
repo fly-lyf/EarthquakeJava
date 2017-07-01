@@ -32,23 +32,26 @@ public class StatusService {
 
     // 获得响应等级
     public List<EarthquakeRespond> getRespond(String id){
+        // 获得震级和死亡人数，loss信息可能没有
         List<EarthquakeInfo> earthquakeInfos = infoRepository.getByEventId(id);
         List<EarthquakeLoss> earthquakeLosses = lossRepository.getLossByEventId(id);
-        EarthquakeLoss earthquakeLoss = earthquakeLosses.get(0);
-        Integer death = earthquakeLoss.getDeath();
         Double magnitude = earthquakeInfos.get(0).getMagnitude();
-        if(death == null){
-            death = 0;
-        }
         if(magnitude == null){
             magnitude = 0.0;
         }
-        System.out.print("death"+death);
-        System.out.print("magnitude"+magnitude);
-
-        int ruleId = statusRepository.getRuleByEventId(death,magnitude);
-        System.out.print("ruleId"+ruleId);
-
+        int ruleId = 3; //如果没有默认为最低紧急程度
+        // 获取ruleId
+        if(earthquakeLosses.size()!=1){
+            ruleId = statusRepository.getRuleByMagnitude(magnitude);
+        }else {
+            EarthquakeLoss earthquakeLoss = earthquakeLosses.get(0);
+            Integer death = earthquakeLoss.getDeath();
+            if(death == null){
+                death = 0;
+            }
+            ruleId = statusRepository.getRuleByEventId(death,magnitude);
+            System.out.print("ruleId"+ruleId);
+        }
         int respondId = ruleRespondRepository.getRespondIdByRuleId(ruleId);
         System.out.print("respondId"+respondId);
 

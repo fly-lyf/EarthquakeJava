@@ -3,10 +3,12 @@ package earthquake.site.controllers;
 import earthquake.site.dao.DivisionRepository;
 import earthquake.site.dao.InfoRepository;
 import earthquake.site.entity.EarthquakeAdministrativeDivision;
+import earthquake.site.entity.EarthquakeDeployEntity;
 import earthquake.site.entity.EarthquakeInfo;
 import earthquake.site.entity.EarthquakeRespond;
 import earthquake.site.forms.BriefSearchForm;
 import earthquake.site.service.OuterDataService;
+import earthquake.site.service.RespondService;
 import earthquake.site.service.StatusService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +37,8 @@ public class BriefController {
     private OuterDataService outerDataService;
     @Inject
     private StatusService statusService;
+    @Inject
+    private RespondService respondService;
 
     @ResponseBody
     @RequestMapping(value = "/first")
@@ -102,8 +106,12 @@ public class BriefController {
 //        result.put("statusInfo", statusInfo);
 //        System.out.print("result"+result);
         HashMap<String, Object> result = new HashMap<>();
+        // 获取相应等级信息
         List<EarthquakeRespond> responds = statusService.getRespond(id);
         result.put("respond",responds);
+        // 获取应急处理方案
+        List<EarthquakeDeployEntity> deploys = respondService.getRespondDeploy(id);
+        result.put("deploys",deploys);
         return result;
     }
     @ResponseBody

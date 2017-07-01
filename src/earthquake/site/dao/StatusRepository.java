@@ -62,6 +62,19 @@ public class StatusRepository extends GenericJpaBaseRepository<Integer, Earthqua
                 return result.get(0).getRuleId();
             }
         }
+    public int getRuleByMagnitude(double magnitude){
+        // 拼接条件获取应急等级
+        ArrayList<String> subQuery = new ArrayList<>();
+        subQuery.add("entity.maxMagnitude > " + magnitude);
+        subQuery.add("entity.minMagnitude <= " + magnitude);
+        TypedQuery<EarthquakeRule> query = getTypedQuery(subQuery);
+        List<EarthquakeRule> result = query.getResultList();
+        if(result.size()!=1){
+            return 3;
+        }else {
+            return result.get(0).getRuleId();
+        }
+    }
 //    // 获得响应等级
 //    public List<EarthquakeRespond> getRespond(String id){
 //        int ruleId = getRuleByEventId(id).get(0).getRuleId();
