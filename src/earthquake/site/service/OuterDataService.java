@@ -136,11 +136,12 @@ public class OuterDataService {
     }
 
     //百度百科信息轮询
-    public void getBaike(String[] locations) throws IOException {
-
+    @Transactional
+    public EarthquakeAdministrativeDivision getBaike(String location) throws IOException {
+        // 单个获取
         String requestStr = "http://baike.baidu.com/item/";
-        for (int i = 0; i < locations.length; i++) {
-            String location = locations[i];
+//        for (int i = 0; i < locations.length; i++) {
+//            String location = locations[i];
             String request = requestStr + location;
             String resText = getEntity(request);
 
@@ -160,14 +161,14 @@ public class OuterDataService {
                 switch (h2Text.text()) {
                     case "行政区划":
                         while (sib.hasAttr("class") && !sib.hasClass("leve-2")) {
-                            administrative = administrative.concat(sib.html());
+                            administrative = administrative.concat(sib.text());
                             sib = sib.nextElementSibling();
                         }
                         break;
                     case "人口民族":
                     case "人口":
                         while (sib.hasAttr("class") && !sib.hasClass("level-2")) {
-                            population = population.concat(sib.html());
+                            population = population.concat(sib.text());
                             sib = sib.nextElementSibling();
                         }
                         break;
@@ -182,7 +183,7 @@ public class OuterDataService {
                                     case "位置":
                                     case "面积":
                                         while (sib.hasClass("para") || sib.hasClass("table-view")) {
-                                            realm = realm.concat(sib.html());
+                                            realm = realm.concat(sib.text());
                                             sib = sib.nextElementSibling();
                                         }
                                         break;
@@ -190,20 +191,20 @@ public class OuterDataService {
                                     case "地貌":
                                     case "地形地貌":
                                         while (sib.hasClass("para") || sib.hasClass("table-view")) {
-                                            terrain = terrain.concat(sib.html());
+                                            terrain = terrain.concat(sib.text());
                                             sib = sib.nextElementSibling();
                                         }
                                         break;
                                     case "地质":
                                         while (sib.hasClass("para") || sib.hasClass("table-view")) {
-                                            structure = structure.concat(sib.html());
+                                            structure = structure.concat(sib.text());
                                             sib = sib.nextElementSibling();
                                         }
                                         break;
                                     case "气候":
                                     case "气候特征":
                                         while (sib.hasClass("para") || sib.hasClass("table-view")) {
-                                            climate = climate.concat(sib.html());
+                                            climate = climate.concat(sib.text());
                                             sib = sib.nextElementSibling();
                                         }
                                         break;
@@ -212,7 +213,7 @@ public class OuterDataService {
                                 sib = sib.nextElementSibling();
                             } else {
                                 //一直拿不到level-3意味着没有三级标题，就都放在地理环境粒
-                                environment = environment.concat(sib.html());
+                                environment = environment.concat(sib.text());
                                 sib = sib.nextElementSibling();
                             }
                         }
@@ -220,7 +221,7 @@ public class OuterDataService {
                         break;
                     case "自然资源":
                         while (sib.hasAttr("class") && !sib.hasClass("level-2")) {
-                            naturalSource = naturalSource.concat(sib.html());
+                            naturalSource = naturalSource.concat(sib.text());
                             sib = sib.nextElementSibling();
                         }
                         break;
@@ -238,7 +239,8 @@ public class OuterDataService {
             earthquakeAdministrativeDivision.setGeoStructure(structure);
             earthquakeAdministrativeDivision.setRealm(realm);
             divisionRepository.insert(earthquakeAdministrativeDivision);
-        }
+            return earthquakeAdministrativeDivision;
+//        }
     }
 
     //解析请求并保存到数据库中，如果地震发生地解析失败，会将发生地信息存入undealed字段留待人工解析

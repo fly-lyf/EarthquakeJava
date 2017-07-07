@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by FLY on 2017/6/28 0028.
  */
 @Entity
-@Table(name = "earthquake_info", schema = "", catalog = "earthquake")
+@Table(name = "earthquake_info", schema = "earthquake", catalog = "")
 public class EarthquakeInfo {
     private int id;
     private String eventId;

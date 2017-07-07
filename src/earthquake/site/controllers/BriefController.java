@@ -44,18 +44,20 @@ public class BriefController {
     @RequestMapping(value = "/first")
     public HashMap<String, Object> briefFirst(BriefSearchForm briefSearchForm) throws IOException {
         HashMap<String, Object> result = new HashMap<>();
-
+        // 检索获得所有地震列表
         List<EarthquakeInfo> earthquakeInfoList = infoRepository.getEarthquakeInfoByCondition(briefSearchForm);
         result.put("earthquakeInfo", earthquakeInfoList);
         System.out.print("earthquakeInfo"+earthquakeInfoList);
+        // 若只有一个结果直接显示详细信息，否则显示列表
         if(earthquakeInfoList.size() == 1){
             EarthquakeInfo info = earthquakeInfoList.get(0);
             String eventId = info.getEventId();
             briefSearchForm.setCounty(info.getCounty());
             briefSearchForm.setCity(info.getCity());
             briefSearchForm.setProvince(info.getProvince());
-            List<EarthquakeAdministrativeDivision> division = divisionRepository.getAdministrativeDivisionByCondition(briefSearchForm);
-            result.put("division", division);
+            // 获得行政区域信息
+//            List<EarthquakeAdministrativeDivision> division = divisionRepository.getAdministrativeDivisionByCondition(briefSearchForm);
+//            result.put("division", division);
 
             BriefSearchForm historyForm = new BriefSearchForm();
 
@@ -78,18 +80,30 @@ public class BriefController {
                     historyEarthquakeCity.add(earthquakeInfo);
                 }
             }
+            // 历史地震记录
             result.put("historyEarthquakeCity", historyEarthquakeCity);
 
             String province = info.getProvince();
             String city = info.getCity();
             String county = info.getCounty();
-
+            String place ="";
+            if(county!=null&&!county.equals("")){
+                place = county;
+            }else if(city!=null&&!city.equals("")){
+                place = city;
+            }else {
+                place = province;
+            }
+            // 这一步只是插入数据到数据库中，需要重新获取，数据格式待解析
+           EarthquakeAdministrativeDivision earthquakeAdministrativeDivision = outerDataService.getBaike(place);
+            result.put("division",earthquakeAdministrativeDivision);
+            // 获取天气信息
             Object weatherInfo = outerDataService.getWeather(city);
             result.put("weatherInfo", weatherInfo);
-
+            // 获取周边区县
             Object nearCounty = outerDataService.getNearDistrict(city, county);
             result.put("nearCounty", nearCounty);
-
+            // 获取周边城市
             Object nearCity = outerDataService.getNearDistrict(province, city);
             result.put("nearCity", nearCity);
 

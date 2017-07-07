@@ -17,6 +17,9 @@ public class DeployRepository extends GenericJpaBaseRepository<Integer, Earthqua
      * 根据响应等级id及所在省份获取相应的处理方案
      * */
     public List<EarthquakeDeployEntity> getDeploy(int id, String province){
+        if(province.indexOf("省")!=-1){
+            province = province.substring(0,province.indexOf("省"));
+        }
         String query = "select entity from EarthquakeDeployEntity entity where entity.respondId=" + id + "and entity.province='" + province +"'";
         TypedQuery<EarthquakeDeployEntity> typedQuery = entityManager.createQuery(query, entityClass);
         return typedQuery.getResultList();
