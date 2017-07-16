@@ -160,10 +160,12 @@ public class OuterDataService {
                 Element sib = element.nextElementSibling();
                 switch (h2Text.text()) {
                     case "行政区划":
-                        while (sib.hasAttr("class") && !sib.hasClass("leve-2")) {
-                            administrative = administrative.concat(sib.text());
-                            sib = sib.nextElementSibling();
-                        }
+//                        while (sib.hasAttr("class") && !sib.hasClass("leve-2")) {
+//                            administrative = administrative.concat(sib.text());
+//                            sib = sib.nextElementSibling();
+//                        }
+                        // 获取行政区划第一段内容，原来的有问题
+                        administrative = administrative.concat(sib.text());
                         break;
                     case "人口民族":
                     case "人口":
@@ -238,7 +240,7 @@ public class OuterDataService {
             earthquakeAdministrativeDivision.setGeoTerrain(terrain);
             earthquakeAdministrativeDivision.setGeoStructure(structure);
             earthquakeAdministrativeDivision.setRealm(realm);
-            divisionRepository.insert(earthquakeAdministrativeDivision);
+//            divisionRepository.insert(earthquakeAdministrativeDivision);
             return earthquakeAdministrativeDivision;
 //        }
     }
