@@ -10,6 +10,7 @@ import earthquake.site.forms.BriefSearchForm;
 import earthquake.site.service.OuterDataService;
 import earthquake.site.service.RespondService;
 import earthquake.site.service.StatusService;
+import earthquake.site.service.WordCreateService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,6 +40,8 @@ public class BriefController {
     private StatusService statusService;
     @Inject
     private RespondService respondService;
+    @Inject
+    private WordCreateService wordCreateService;
 
     @ResponseBody
     @RequestMapping(value = "/first")
@@ -47,7 +50,6 @@ public class BriefController {
         // 检索获得所有地震列表
         List<EarthquakeInfo> earthquakeInfoList = infoRepository.getEarthquakeInfoByCondition(briefSearchForm);
         result.put("earthquakeInfo", earthquakeInfoList);
-        System.out.print("earthquakeInfo"+earthquakeInfoList);
         // 若只有一个结果直接显示详细信息，否则显示列表
         if(earthquakeInfoList.size() == 1){
             EarthquakeInfo info = earthquakeInfoList.get(0);
@@ -106,6 +108,12 @@ public class BriefController {
             // 获取周边城市
             Object nearCity = outerDataService.getNearDistrict(province, city);
             result.put("nearCity", nearCity);
+            // 生成文档
+            System.out.println("word create start........");
+            wordCreateService.createBasicInfo(
+                    earthquakeInfoList.get(0),
+                    earthquakeAdministrativeDivision
+            );
 
         }else{
             result.put("pageTotal", earthquakeInfoList.size());
@@ -119,6 +127,8 @@ public class BriefController {
 //        List<EarthquakeRule> statusInfo = statusRepository.getStatusByCondition(statusSearchForm);
 //        result.put("statusInfo", statusInfo);
 //        System.out.print("result"+result);
+        List<EarthquakeInfo> earthquakeInfos = infoRepository.getByEventId(id);
+        EarthquakeInfo earthquakeInfo = earthquakeInfos.get(0);
         HashMap<String, Object> result = new HashMap<>();
         // 获取相应等级信息
         List<EarthquakeRespond> responds = statusService.getRespond(id);
