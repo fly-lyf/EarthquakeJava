@@ -10,28 +10,32 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/8/1.
  */
 @Service
 public class WordCreateService{
 
-    public void createBasicInfo(EarthquakeInfo basicInfo, EarthquakeAdministrativeDivision earthquakeAdministrativeDivision)  throws IOException {
+    public void createBasicInfo(EarthquakeInfo basicInfo, EarthquakeAdministrativeDivision earthquakeAdministrativeDivision, List<EarthquakeInfo> historyEarthquakeCounty, Object weatherInfo)  throws IOException {
         HashMap map = new HashMap();
         map.put("longitude", basicInfo.getLongitude());
         map.put("latitude", basicInfo.getLatitude());
         map.put("magnitude", basicInfo.getMagnitude());
         map.put("depth", basicInfo.getDepth());
         map.put("county", basicInfo.getCounty());
-        map.put("year", basicInfo.getEarthquakeTime().getYear());
-        map.put("month", basicInfo.getEarthquakeTime().getMonth());
+        map.put("year", basicInfo.getEarthquakeTime().getYear()+1900);
+        map.put("month", basicInfo.getEarthquakeTime().getMonth()+1);
         map.put("day", basicInfo.getEarthquakeTime().getDay());
         map.put("realm", earthquakeAdministrativeDivision.getRealm());
         map.put("population", earthquakeAdministrativeDivision.getPopulation());
         map.put("administrative", earthquakeAdministrativeDivision.getAdministrativeArea());
         map.put("structure", earthquakeAdministrativeDivision.getGeoStructure());
         map.put("climate", earthquakeAdministrativeDivision.getClimate());
-        System.out.println(map);
+        map.put("historyEarthquakeCounty",historyEarthquakeCounty);
+        map.put("weatherInfo",weatherInfo);
+        System.out.println(historyEarthquakeCounty);
         System.out.println("create word function start.........");
         basicCreate(basicInfo, "first.ftl", 1, map);
     }
@@ -55,12 +59,16 @@ public class WordCreateService{
         String province = basicInfo.getProvince();
         String city = basicInfo.getCity();
         String county = basicInfo.getCounty();
+        String eventID = basicInfo.getEventId();
         Double magnitude = basicInfo.getMagnitude();
         // 日期作为输出目录，这里的日期应该作为地震发生的日期，以年命名，从基本信息basicInfo中提取
-        // 文挡所在目录
+        // 本地文挡所在目录
         String directory = "output\\"+year+"\\";
+        // 服务器文档所在目录
+//        String directory = "webapps\\ROOT\\output\\"+year+"\\";
         // 每个地震文件夹名称
-        String secondDir = directory + year + "年"+ month +"月"+day+"日"+ province+county+magnitude+"级地震\\";
+////        String secondDir = directory + year + "年"+ month +"月"+day+"日"+ province+county+magnitude+"级地震\\";
+        String secondDir = directory + eventID + "\\";
         File file = new File(directory);
         System.out.println(file.getAbsolutePath());
         System.out.println(file.getPath());

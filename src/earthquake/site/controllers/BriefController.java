@@ -110,9 +110,13 @@ public class BriefController {
             result.put("nearCity", nearCity);
             // 生成文档
             System.out.println("word create start........");
+            System.out.println(historyEarthquakeCounty);
             wordCreateService.createBasicInfo(
                     earthquakeInfoList.get(0),
-                    earthquakeAdministrativeDivision
+                    earthquakeAdministrativeDivision,
+                    historyEarthquakeCity,
+                    weatherInfo
+
             );
 
         }else{
