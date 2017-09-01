@@ -1,13 +1,11 @@
-package earthquake.site.services;
+package earthquake.site.service;
 
-import earthquake.site.forms.CrawlerForm;
+import earthquake.site.forms.PyCrawlerForm;
 import earthquake.site.forms.Status;
-import earthquake.site.repositories.UrlsRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.io.*;
 
 /**
@@ -15,7 +13,7 @@ import java.io.*;
  */
 
 @Service
-public class CrawlerService {
+public class PyCrawlerService {
 
     private static final Logger log = LogManager.getLogger();
 
@@ -42,7 +40,7 @@ public class CrawlerService {
         }
     }
 
-    public int updateParams(CrawlerForm form) {
+    public int updateParams(PyCrawlerForm form) {
         String time;
         String keywords = "地震";
         if (!form.getTimeSeq().equals("") && form.getTimeStr().equals("")) {
@@ -66,7 +64,7 @@ public class CrawlerService {
         }
     }
 
-    //todo-fly 写入数据库配置
+
     /**
      * 写入setting.txt
      *
@@ -122,4 +120,6 @@ public class CrawlerService {
         }
         return lines;
     }
+
+
 }

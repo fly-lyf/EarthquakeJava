@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by fly on 2016/10/14.
  */
-public class SearchForm {
+public class WebpageSearchForm {
     public String orderName;
     public String order;
     public String eventId;

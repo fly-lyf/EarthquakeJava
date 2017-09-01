@@ -23,6 +23,10 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 副dispatchar，为啥要分成两个忘记了，书上有
+ */
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(
@@ -53,6 +57,7 @@ public class ServletContextConfiguration extends WebMvcConfigurerAdapter {
         converters.add(jsonConverter);
     }
 
+//    不会用的数据协商
 //    @Override
 //    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 //        configurer.favorPathExtension(true).favorParameter(false)
@@ -67,6 +72,7 @@ public class ServletContextConfiguration extends WebMvcConfigurerAdapter {
         return new DefaultRequestToViewNameTranslator();
     }
 
+    //复杂类型表单转换器，没用到
     @Bean
     public MultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();

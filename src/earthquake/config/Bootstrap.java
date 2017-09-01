@@ -3,19 +3,25 @@ package earthquake.config;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import java.nio.charset.StandardCharsets;
 
+/**
+ * 代替web.xml用于部署配置
+ */
 @SuppressWarnings("unused")
 public class Bootstrap implements WebApplicationInitializer
 {
     @Override
     public void onStartup(ServletContext container) throws ServletException
     {
-        container.getServletRegistration("default").addMapping("*.html","*.js","*.css","*.jpg","*.map","*.icon", "*.json","*.woff","*.ttf","*.*");
+        container.getServletRegistration("default").addMapping("*.html", "*.js", "*.css", "*.jpg", "*.map", "*.icon", "*.json", "*.woff", "*.ttf","*.doc", "*.*");
 
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(RootContextConfiguration.class);
@@ -26,5 +32,10 @@ public class Bootstrap implements WebApplicationInitializer
         ServletRegistration.Dynamic dispatcher = container.addServlet("springDispatcher", new DispatcherServlet(servletContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
+
+        FilterRegistration.Dynamic encodingFilter = container.addFilter("encodingFilter", CharacterEncodingFilter.class);
+        encodingFilter.setInitParameter("encoding", String.valueOf(StandardCharsets.UTF_8));
+        encodingFilter.setInitParameter("forceEncoding", "true");
+        encodingFilter.addMappingForUrlPatterns(null, false, "/*");
     }
 }

@@ -1,18 +1,18 @@
-package earthquake.site.entities;
+package earthquake.site.entity;
 
 import javax.persistence.*;
 
 /**
- * Created by fly on 2016/10/15.
+ * Created by fly on 2017/6/14.
  */
 @Entity
-@Table(name = "earthquake_leftbar", schema = "earthquake", catalog = "")
+@Table(name = "earthquake_leftbar", schema = "", catalog = "earthquake")
 public class EarthquakeLeftbar {
     private int id;
     private String column;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
     }
@@ -22,7 +22,7 @@ public class EarthquakeLeftbar {
     }
 
     @Basic
-    @Column(name = "column", nullable = true, length = 255)
+    @Column(name = "column", nullable = true, insertable = true, updatable = true, length = 255)
     public String getColumn() {
         return column;
     }

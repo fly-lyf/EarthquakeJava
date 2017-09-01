@@ -1,19 +1,19 @@
 package earthquake.site.controllers;
 
-import earthquake.site.forms.SearchForm;
-import earthquake.site.entities.EarthquakeLeftbar;
-import earthquake.site.repositories.LeftBarRepository;
-import earthquake.site.repositories.WebpagesRepository;
+import earthquake.site.forms.WebpageSearchForm;
+import earthquake.site.entity.EarthquakeLeftbar;
+import earthquake.site.dao.LeftBarRepository;
+import earthquake.site.dao.WebpagesRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Created by earthquake on 2016/10/8.
+ * 展示页面控制器
  */
 
 @Controller
@@ -37,9 +37,9 @@ public class ListController {
 
     @ResponseBody
     @RequestMapping(value = "/search")
-    public HashMap<String, Object> searchList(SearchForm form) {
+    public HashMap<String, Object> searchList(WebpageSearchForm form) {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("list", webpagesRepository.getByCondition(form));
+        result.put("list", webpagesRepository.getWebpagesByCondition(form));
         result.put("pageTotal", webpagesRepository.getCount(form));
         return result;
     }

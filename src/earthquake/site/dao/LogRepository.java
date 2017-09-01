@@ -1,12 +1,12 @@
-package earthquake.site.repositories;
+package earthquake.site.dao;
 
-import earthquake.site.entities.EarthquakeLog;
+import earthquake.site.entity.EarthquakeLog;
+import earthquake.site.forms.EmptyForm;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
-import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,12 +15,11 @@ import java.util.Date;
  */
 
 @Repository
-public class LogRepository extends GenericJpaBaseRepository<Integer, EarthquakeLog> {
+public class LogRepository extends GenericJpaBaseRepository<Integer, EarthquakeLog, EmptyForm> {
 
     public Iterable<EarthquakeLog> getTwoMinutes() {
         Date twoMinutes = new Date(new Date().getTime() - 60000);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String time = sdf.format(twoMinutes);
         String query = "from EarthquakeLog log where log.time >= :date order by log.time desc";
         Query typedQuery = entityManager.createQuery(query, entityClass);
         typedQuery.setParameter("date", twoMinutes);
@@ -36,6 +35,6 @@ public class LogRepository extends GenericJpaBaseRepository<Integer, EarthquakeL
                 builder.gt(query.from(entityClass).get("id"), 1000)
         )).executeUpdate();
 
-        System.out.println("结果是：" + result);
+        System.out.println("earthquake_log表中的剩余记录数是：" + result);
     }
 }

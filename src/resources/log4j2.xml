@@ -2,7 +2,7 @@
 <configuration status="WARN">
     <appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout
+            <PatternLayout charset="UTF-8"
                     pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
         <RollingFile name="WroxFileAppender" fileName="../logs/application.log"
@@ -21,8 +21,20 @@
             <appender-ref ref="Console" />
             <appender-ref ref="WroxFileAppender" />
         </root>
+    </loggers>
+    <loggers>
+        <root level="info">
+            <appender-ref ref="Console" />
+            <appender-ref ref="WroxFileAppender" />
+        </root>
         <logger name="com.wrox" level="info" />
         <logger name="org.apache" level="info" />
         <logger name="org.springframework" level="info" />
+    </loggers>
+    <loggers>
+        <root level="error">
+            <appender-ref ref="Console" />
+            <appender-ref ref="WroxFileAppender" />
+        </root>
     </loggers>
 </configuration>
